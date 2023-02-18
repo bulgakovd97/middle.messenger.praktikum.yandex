@@ -1,0 +1,25 @@
+@use '../../styles/tools' as *;
+
+.profile-main {
+  @include flex-row;
+  height: $height-100;
+}
+
+.profile {
+  @include flex-column;
+  width: 510px;
+
+  &__name {
+    font-size: 1rem;
+    font-weight: 600;
+    margin-top: 20px;
+  }
+
+  &__form {
+    margin-top: 60px;
+  }
+
+  &__button-group {
+    margin-top: 60px;
+  }
+}

@@ -1,0 +1,9 @@
+<form class="sign-form">
+  <fieldset class="sign-form__fieldset">
+    {{#if @partial-block}}
+    {{> @partial-block}}
+    {{/if}}
+
+    <button class="sign-form__link-button" type="button">{{ linkText }}</button>
+  </fieldset>
+</form>
