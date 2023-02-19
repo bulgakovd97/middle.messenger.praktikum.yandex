@@ -1,0 +1,75 @@
+@use './tools' as *;
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: auto;
+  padding: 0;
+  font-family: $font-primary;
+  color: $color-black;
+  background-color: $color-white;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+  -moz-text-size-adjust: 100%;
+  width: $width-100;
+  height: $height-100;
+  max-width: 1280px;
+  min-width: 320px;
+  max-height: fit-content;
+  line-height: 1.25;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+input,
+button,
+textarea,
+ul,
+li {
+  margin: 0;
+  padding: 0;
+}
+
+li {
+  list-style: none;
+}
+
+fieldset {
+  padding: 0;
+  margin: 0;
+  min-width: 0;
+  width: $width-100;
+  border: none;
+}
+
+input {
+  outline: none;
+  border: none;
+  width: $width-100;
+}
+
+button {
+  font-family: $font-primary;
+  background: 0;
+  border: none;
+  cursor: pointer;
+}
+
+a {
+  text-decoration: none;
+}

@@ -1,0 +1,31 @@
+@use '../../styles/tools' as *;
+
+.popup {
+  @include flex-column;
+  @include popup-shape;
+
+  width: 340px;
+  padding: 50px 30px 30px;
+
+  &__title {
+    font-size: $font-size-m;
+    line-height: $line-height;
+    padding-bottom: 40px;
+  }
+
+  &_type_login {
+    max-height: 490px;
+  }
+
+  &_type_sign-up {
+    max-height: 650px;
+  }
+
+  &_type_avatar {
+    max-height: 275px;
+  }
+
+  &_type_user {
+    max-height: 275px;
+  }
+}

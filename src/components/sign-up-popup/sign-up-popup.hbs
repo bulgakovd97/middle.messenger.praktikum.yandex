@@ -1,0 +1,37 @@
+{{#> popup/popup title="Регистрация" }}
+
+{{#> sign-form/sign-form linkText="Войти" }}
+
+{{> input-block/input-block for="email" label="Почта" type="email" id="email" name="email" placeholder="Почта"
+errorMessage="Неверная почта"}}
+
+{{> input-block/input-block for="login" label="Логин" type="text" id="login" name="login" placeholder="Логин"
+errorMessage="Неверный логин"}}
+
+{{> input-block/input-block for="first_name" label="Имя" type="text" id="first_name" name="first_name"
+placeholder="Имя"
+errorMessage="Неверное имя"}}
+
+{{> input-block/input-block for="second_name" label="Фамилия" type="text" id="second_name" name="second_name"
+placeholder="Фамилия"
+errorMessage="Неверная фамилия"}}
+
+{{> input-block/input-block for="phone" label="Телефон" type="tel" id="phone" name="phone"
+placeholder="Телефон"
+errorMessage="Неверный номер телефона"}}
+
+{{> input-block/input-block for="password" label="Пароль" type="password" id="password" name="password"
+placeholder="Пароль"
+errorMessage="Неверный пароль"}}
+
+{{> input-block/input-block for="password-repeat" label="Пароль (ещё раз)" type="password"
+id="password-repeat" name="password-repeat"
+placeholder="Пароль (ещё раз)"
+errorMessage="Пароли не совпадают"}}
+
+{{> submit-button/submit-button class="sign-form__button sign-form__button_type_signup"
+buttonText="Зарегистрироваться"}}
+
+{{/sign-form/sign-form}}
+
+{{/popup/popup }}
