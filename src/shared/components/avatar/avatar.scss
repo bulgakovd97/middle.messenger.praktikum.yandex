@@ -1,0 +1,37 @@
+@use '../../../styles/tools' as *;
+
+.avatar {
+  @include flex-row;
+
+  position: relative;
+  width: 130px;
+  height: 130px;
+  object-fit: cover;
+  background-color: $color-xlight-grey;
+  border-radius: $border-circle;
+
+  &__photo {
+    width: 40px;
+    height: 40px;
+  }
+
+  &__button {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    font-size: $font-size-s;
+    padding-left: 33px;
+    padding-right: 33px;
+    border-radius: $border-circle;
+    color: $color-white;
+    background-color: $color-black;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+
+    &:hover {
+      opacity: .7;
+    }
+  }
+}

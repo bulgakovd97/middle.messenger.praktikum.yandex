@@ -1,5 +1,5 @@
 import { App } from './App';
-import './components';
+import '@/shared/components';
 
 const root = document.querySelector('#root');
 

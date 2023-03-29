@@ -1,27 +1,38 @@
-import { Main } from './pages/main';
-import { Error500 } from './pages/500';
-import { Error404 } from './pages/404';
-import { Profile } from './pages/profile';
-import { EditPassword } from './pages/edit-password';
-import { Chats } from './pages/chats';
+import {
+  Chats,
+  EditPassword,
+  Error404,
+  Error500,
+  Main,
+  Profile,
+} from './pages';
+import { Routes } from '@/shared/lib';
+
+const {
+  CHATS,
+  EDIT_PASSWORD,
+  ERROR_PAGE,
+  NOT_FOUND,
+  PROFILE,
+} = Routes;
 
 export const App = () => {
   const { pathname } = window.location;
 
   switch (pathname) {
-    case '/500':
+    case ERROR_PAGE:
       return Error500();
 
-    case '/404':
+    case NOT_FOUND:
       return Error404();
 
-    case '/profile':
+    case PROFILE:
       return Profile();
 
-    case '/edit-password':
+    case EDIT_PASSWORD:
       return EditPassword();
 
-    case '/chats':
+    case CHATS:
       return Chats();
 
     default:

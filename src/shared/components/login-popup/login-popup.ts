@@ -1,0 +1,18 @@
+export const LoginPopup = `
+{{#> popup/popup class="popup_type_login" title="Вход" }}
+
+{{#> sign-form/sign-form linkText="Нет аккаунта?" }}
+
+{{> input-block/input-block for="login" label="Логин" type="text" id="login" name="login" placeholder="Логин"
+errorMessage="Неверный логин"}}
+
+{{> input-block/input-block for="password" label="Пароль" type="password" id="password" name="password"
+placeholder="Пароль"
+errorMessage="Неверный пароль"}}
+
+{{> submit-button/submit-button class="sign-form__button sign-form__button_type_login" buttonText="Войти"}}
+
+{{/sign-form/sign-form}}
+
+{{/popup/popup }}
+`;
