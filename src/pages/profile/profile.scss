@@ -2,11 +2,13 @@
 
 .profile-main {
   @include flex-row;
+
   height: $height-100;
 }
 
 .profile {
   @include flex-column;
+
   width: 510px;
 
   &__name {

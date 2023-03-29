@@ -1,0 +1,3 @@
+export const submitButton = `
+<button class="submit-button {{ class }}" type="submit">{{ buttonText }}</button>
+`;

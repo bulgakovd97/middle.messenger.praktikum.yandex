@@ -2,6 +2,7 @@
 
 .input-block {
   @include flex-column;
+
   align-items: flex-start;
   width: $width-100;
 

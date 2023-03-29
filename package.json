@@ -4,8 +4,13 @@
   "description": "",
   "scripts": {
     "start": "npm run build && node ./server.js",
-    "dev": "parcel ./index.hbs --no-cache --open",
-    "build": "parcel build ./index.hbs --no-cache"
+    "dev": "parcel ./index.html --no-cache",
+    "build": "parcel build ./index.html --no-cache",
+    "typecheck": "tsc -p ./tsconfig.json",
+    "lint": "eslint src/ --ext .ts",
+    "lint:fix": "eslint src/ --ext .ts --fix",
+    "stylelint": "stylelint \"src/**/*.scss\"",
+    "stylelint:fix": "stylelint \"src/**/*.scss\" --fix"
   },
   "repository": {
     "type": "git",
@@ -22,10 +27,20 @@
     "handlebars": "4.7.7"
   },
   "devDependencies": {
-    "@anikin/parcel-transformer-handlebars": "1.0.9",
     "@parcel/transformer-sass": "2.8.3",
+    "@types/node": "18.15.11",
+    "@typescript-eslint/eslint-plugin": "5.57.0",
+    "@typescript-eslint/parser": "5.57.0",
+    "eslint": "8.37.0",
+    "eslint-config-airbnb": "19.0.4",
+    "eslint-config-airbnb-typescript": "17.0.0",
+    "eslint-plugin-import": "2.27.5",
     "express": "4.18.2",
     "parcel": "2.8.3",
-    "sass": "1.58.1"
+    "sass": "1.58.1",
+    "stylelint": "15.3.0",
+    "stylelint-config-standard-scss": "7.0.1",
+    "ts-node": "10.9.1",
+    "typescript": "5.0.2"
   }
 }

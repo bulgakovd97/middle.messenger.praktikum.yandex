@@ -2,10 +2,12 @@
 
 .sign-form {
   @include flex-column;
+
   width: $width-100;
 
   &__fieldset {
     @include flex-column;
+
     gap: 16px;
   }
 

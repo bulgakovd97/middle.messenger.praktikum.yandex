@@ -2,10 +2,12 @@
 
 .avatar-popup-form {
   @include flex-column;
+
   width: $width-100;
 
   &__fieldset {
     @include flex-column;
+
     gap: 45px;
   }
 
