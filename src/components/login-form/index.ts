@@ -5,12 +5,12 @@ import {
   passwordMaxLength,
   passwordMinLength,
   passwordRegex,
-} from '../../shared/lib';
+} from '@/shared/lib';
 import { InputBlock } from '../input-block';
 import { SubmitButton } from '../submit-button';
 import template from './login-form.hbs';
-import { Block } from '../../shared/utils/Block';
-import { CheckDataProps, InputValidation } from '../../shared/utils/FormValidation';
+import { Block } from '@/shared/utils/Block';
+import { CheckDataProps, InputValidation } from '@/shared/utils/FormValidation';
 
 interface LoginFormProps {
   title: string;

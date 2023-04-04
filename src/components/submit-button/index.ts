@@ -1,5 +1,5 @@
 import template from './submit-button.hbs';
-import { Block } from '../../shared/utils/Block';
+import { Block } from '@/shared/utils/Block';
 
 interface SubmitButtonProps {
   className: string | string[];

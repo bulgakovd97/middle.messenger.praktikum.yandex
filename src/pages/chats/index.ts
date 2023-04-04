@@ -4,13 +4,13 @@ import {
   ChatList,
   Feed,
   UserDropDown,
-} from '../../components/chats';
+} from '@/components/chats';
 import template from './chats.hbs';
-import { Block } from '../../shared/utils/Block';
-import { UserPopup } from '../../components/user-popup';
-import { CheckDataProps, InputValidation } from '../../shared/utils/FormValidation';
-import { loginMaxLength, loginMinLength, loginRegex } from '../../shared/lib';
-import { mockChats } from '../../shared/data';
+import { Block } from '@/shared/utils/Block';
+import { UserPopup } from '@/components/user-popup';
+import { CheckDataProps, InputValidation } from '@/shared/utils/FormValidation';
+import { loginMaxLength, loginMinLength, loginRegex } from '@/shared/lib';
+import { mockChats } from '@/shared/data';
 
 export class ChatsPage extends Block {
   private _userDropDown: HTMLDivElement | null;

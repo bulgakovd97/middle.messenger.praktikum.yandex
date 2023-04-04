@@ -11,9 +11,9 @@ import {
   phoneMaxLength,
   phoneMinLength,
   phoneRegex,
-} from '../../shared/lib';
+} from '@/shared/lib';
 import template from './profile.hbs';
-import { Block } from '../../shared/utils/Block';
+import { Block } from '@/shared/utils/Block';
 import {
   Back,
   Avatar,
@@ -22,7 +22,7 @@ import {
   SubmitButton,
   AvatarPopup,
 } from '../../components';
-import { InputValidation, CheckDataProps } from '../../shared/utils/FormValidation';
+import { InputValidation, CheckDataProps } from '@/shared/utils/FormValidation';
 
 export class ProfilePage extends Block {
   private _form: HTMLFormElement | null;

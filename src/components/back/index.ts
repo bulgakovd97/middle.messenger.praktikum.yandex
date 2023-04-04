@@ -1,5 +1,5 @@
 import template from './back.hbs';
-import { Block } from '../../shared/utils/Block';
+import { Block } from '@/shared/utils/Block';
 
 export class Back extends Block {
   constructor() {

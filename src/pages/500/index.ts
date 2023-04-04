@@ -1,6 +1,6 @@
 import template from './500.hbs';
-import { Block } from '../../shared/utils/Block';
-import { Error } from '../../components/error';
+import { Block } from '@/shared/utils/Block';
+import { Error } from '@/components/error';
 
 export class ErrorPage extends Block {
   constructor() {

@@ -1,6 +1,6 @@
 import { SubmitButton } from '../submit-button';
 import template from './avatar-popup.hbs';
-import { Block } from '../../shared/utils/Block';
+import { Block } from '@/shared/utils/Block';
 
 interface AvatarPopupProps {
   title: string;

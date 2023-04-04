@@ -1,5 +1,5 @@
 import template from './avatar.hbs';
-import { Block } from '../../shared/utils/Block';
+import { Block } from '@/shared/utils/Block';
 // @ts-ignore
 import avatar from '../../../static/avatar.svg';
 

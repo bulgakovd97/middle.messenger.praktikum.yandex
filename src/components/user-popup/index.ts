@@ -1,8 +1,8 @@
-import { InputValidation } from '../../shared/utils/FormValidation';
+import { InputValidation } from '@/shared/utils/FormValidation';
 import { InputBlock } from '../input-block';
 import template from './user-popup.hbs';
-import { Block } from '../../shared/utils/Block';
-import { loginMaxLength, loginMinLength, loginRegex } from '../../shared/lib';
+import { Block } from '@/shared/utils/Block';
+import { loginMaxLength, loginMinLength, loginRegex } from '@/shared/lib';
 import { SubmitButton } from '../submit-button';
 
 interface UserPopupProps {

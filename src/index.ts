@@ -7,7 +7,7 @@ import {
   MainPage,
   NotFoundPage,
   ProfilePage,
-} from './pages';
+} from '@/pages/index';
 import { Routes } from './shared/lib';
 import { Block } from './shared/utils/Block';
 

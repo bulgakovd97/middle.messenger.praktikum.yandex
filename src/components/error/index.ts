@@ -1,5 +1,5 @@
 import template from './error.hbs';
-import { Block } from '../../shared/utils/Block';
+import { Block } from '@/shared/utils/Block';
 
 interface ErrorProps {
   code: string;

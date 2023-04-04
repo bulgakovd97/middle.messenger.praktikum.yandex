@@ -1,6 +1,6 @@
 import template from './sign-up.hbs';
-import { Block } from '../../shared/utils/Block';
-import { SignUpForm } from '../../components/sign-up-form';
+import { Block } from '@/shared/utils/Block';
+import { SignUpForm } from '@/components/sign-up-form';
 
 export class SignUpPage extends Block {
   constructor() {
