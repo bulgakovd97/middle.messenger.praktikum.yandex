@@ -1,5 +1,6 @@
 import { nanoid } from 'nanoid';
 import { EventBus } from './EventBus';
+import { isEmptyObject } from '../lib';
 
 type BlockEvents<P = any> = {
   'init': [],
@@ -74,6 +75,16 @@ export class Block<P extends Record<string, any> = any, E extends HTMLElement = 
     });
   }
 
+  private _removeEvents() {
+    const { events } = this.props as { events: Record<string, (event: Event) => void> };
+
+    if (events && !isEmptyObject(events)) {
+      Object.keys(events).forEach((eventName) => {
+        this._element?.removeEventListener(eventName, events[eventName]);
+      });
+    }
+  }
+
   private _registerEvents(eventBus: EventBus<BlockEvents<Props<P>>>) {
     eventBus.on(Block.EVENTS.INIT, this._init.bind(this));
     eventBus.on(Block.EVENTS.FLOW_CDM, this._componentDidMount.bind(this));
@@ -140,6 +151,8 @@ export class Block<P extends Record<string, any> = any, E extends HTMLElement = 
 
   private _render() {
     const fragment = this.render();
+
+    this._removeEvents();
 
     this._element!.innerHTML = '';
 
