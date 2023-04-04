@@ -8,6 +8,7 @@ interface ProfileInputBlockProps {
   id: string;
   name: string;
   placeholder: string;
+  errorMessage: string;
   disabled: boolean;
   events: {
     focusin: (event: Event) => void,
@@ -24,18 +25,11 @@ export class ProfileInputBlock extends Block<ProfileInputBlockProps, HTMLInputEl
     this.element!.classList.add('profile-input-block');
 
     if (disabled) {
-      this.element!.lastElementChild!.setAttribute('disabled', '');
+      this.element!.querySelector('input')!.setAttribute('disabled', '');
     }
   }
 
   render() {
-    return this.compile(template, {
-      for: this.props.for,
-      label: this.props.label,
-      type: this.props.type,
-      id: this.props.id,
-      name: this.props.name,
-      placeholder: this.props.placeholder,
-    });
+    return this.compile(template, this.props);
   }
 }

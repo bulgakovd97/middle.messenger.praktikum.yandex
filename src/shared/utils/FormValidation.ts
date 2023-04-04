@@ -29,7 +29,7 @@ export class InputValidation {
     const { value } = this._input;
     this._value = value;
 
-    this._error = this._input.nextElementSibling as HTMLParagraphElement;
+    this._error = this._input.parentElement!.nextElementSibling as HTMLParagraphElement;
     this._label = this._input.previousElementSibling as HTMLLabelElement;
 
     const { regex, minLength, maxLength } = checkData;
@@ -48,20 +48,22 @@ export class InputValidation {
   }
 
   private _showError(): void {
-    if (this._error) {
-      this._error.style.display = 'block';
-    } else {
-      this._input!.style.borderBottom = '1px solid #ff2f2f';
+    this._error!.style.display = 'block';
+    this._input!.style.borderBottom = '1px solid #ff2f2f';
+
+    if (this._error!.classList.contains('profile-input-block__error')) {
       this._label!.style.borderBottom = '1px solid #ff2f2f';
     }
   }
 
   private _hideError(): void {
-    if (this._error) {
-      this._error.style.display = 'none';
-    } else {
+    this._error!.style.display = 'none';
+
+    if (this._error!.classList.contains('profile-input-block__error')) {
       this._input!.style.borderBottom = '1px solid #eaeaea';
       this._label!.style.borderBottom = '1px solid #eaeaea';
+    } else {
+      this._input!.style.borderBottom = '1px solid #0ec2c2';
     }
   }
 

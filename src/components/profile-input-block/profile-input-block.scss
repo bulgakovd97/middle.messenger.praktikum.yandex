@@ -1,10 +1,17 @@
 @use '../../styles/tools' as *;
 
 .profile-input-block {
-  display: flex;
+  @include flex-column;
+
   justify-content: space-between;
   width: $width-100;
   font-size: $font-size-s;
+
+  &__input-container {
+    @include flex-row;
+
+    width: $width-100;
+  }
 
   &__label {
     width: 50%;
@@ -22,12 +29,20 @@
       background-color: transparent;
     }
 
-    &::-webkit-input-placeholder {
-      @include input-placeholder;
-    }
+      &::-webkit-input-placeholder {
+        @include input-placeholder;
+      }
 
-    &::-moz-placeholder {
-      @include input-placeholder;
-    }
+      &::-moz-placeholder {
+        @include input-placeholder;
+      }
+  }
+
+  &__error {
+    display: none;
+    font-size: $font-size-s;
+    color: $color-red;
+    padding-top: 7px;
+    align-self: flex-end;
   }
 }

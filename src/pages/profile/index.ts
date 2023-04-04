@@ -69,6 +69,7 @@ export class ProfilePage extends Block {
       name: 'email',
       placeholder: 'bulgakovd97@yandex.ru',
       type: 'email',
+      errorMessage: 'Неверная почта',
       disabled: true,
       events: {
         focusin: (event) => new InputValidation({
@@ -97,6 +98,7 @@ export class ProfilePage extends Block {
       name: 'login',
       placeholder: 'bulgakovd',
       type: 'text',
+      errorMessage: 'Неверный логин',
       disabled: true,
       events: {
         focusin: (event) => new InputValidation({
@@ -125,6 +127,7 @@ export class ProfilePage extends Block {
       name: 'first_name',
       placeholder: 'Денис',
       type: 'text',
+      errorMessage: 'Неверное имя',
       disabled: true,
       events: {
         focusin: (event) => new InputValidation({
@@ -153,6 +156,7 @@ export class ProfilePage extends Block {
       name: 'second_name',
       placeholder: 'Булгаков',
       type: 'text',
+      errorMessage: 'Неверная фамилия',
       disabled: true,
       events: {
         focusin: (event) => new InputValidation({
@@ -181,6 +185,7 @@ export class ProfilePage extends Block {
       name: 'display_name',
       placeholder: 'Денис',
       type: 'text',
+      errorMessage: 'Неверное имя',
       disabled: true,
       events: {
         focusin: (event) => new InputValidation({
@@ -209,6 +214,7 @@ export class ProfilePage extends Block {
       name: 'phone',
       placeholder: '+79999999999',
       type: 'tel',
+      errorMessage: 'Неверный номер телефона',
       disabled: true,
       events: {
         focusin: (event) => new InputValidation({

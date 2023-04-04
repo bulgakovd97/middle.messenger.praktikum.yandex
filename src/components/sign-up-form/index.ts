@@ -300,14 +300,16 @@ export class SignUpForm extends Block<SignUpFormProps> {
       const passwordValue = array[array.length - 2].value;
 
       if (isValid) {
-        const error = input.nextElementSibling as HTMLParagraphElement;
+        const error = input.parentElement!.nextElementSibling as HTMLParagraphElement;
 
         if ((index === array.length - 1) && input.value !== passwordValue) {
           error.style.display = 'block';
+          input.style.borderBottom = '1px solid #ff2f2f';
           return;
         }
 
         error.style.display = 'none';
+        input.style.borderBottom = '1px solid #0ec2c2';
 
         validInputs.push(input);
       }

@@ -36,6 +36,7 @@ export class EditPasswordPage extends Block {
       name: 'oldPassword',
       placeholder: '•••••••',
       type: 'password',
+      errorMessage: 'Неверный пароль',
       disabled: false,
       events: {
         focusin: (event) => new InputValidation({
@@ -64,6 +65,7 @@ export class EditPasswordPage extends Block {
       name: 'newPassword',
       placeholder: '•••••••••••',
       type: 'password',
+      errorMessage: 'Неверный пароль',
       disabled: false,
       events: {
         focusin: (event) => new InputValidation({
@@ -92,6 +94,7 @@ export class EditPasswordPage extends Block {
       name: 'newPassword-repeat',
       placeholder: '•••••••••••',
       type: 'password',
+      errorMessage: 'Пароли не совпадают',
       disabled: false,
       events: {
         focusin: (event) => new InputValidation({
@@ -142,13 +145,16 @@ export class EditPasswordPage extends Block {
 
       if (isValid) {
         const label = input.previousElementSibling as HTMLLabelElement;
+        const error = input.parentElement!.nextElementSibling as HTMLParagraphElement;
 
         if ((index === array.length - 1) && input.value !== passwordValue) {
+          error.style.display = 'block';
           input.style.borderBottom = '1px solid #ff2f2f';
           label.style.borderBottom = '1px solid #ff2f2f';
           return;
         }
 
+        error.style.display = 'none';
         input.style.borderBottom = '1px solid #eaeaea';
         label.style.borderBottom = '1px solid #eaeaea';
 
