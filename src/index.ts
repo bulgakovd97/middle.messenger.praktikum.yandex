@@ -26,8 +26,6 @@ let page: Block;
 window.addEventListener('DOMContentLoaded', () => {
   const { pathname } = window.location;
 
-  console.log(window.location);
-
   const root = document.querySelector('#root');
 
   switch (pathname) {
