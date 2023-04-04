@@ -43,6 +43,7 @@
     "no-underscore-dangle": "off",
     "no-param-reassign": "warn",
     "class-methods-use-this": "off",
+    "no-case-declarations": "off",
     // ts-ignore are sometimes the only way to bypass a TS issue, we trust we will use them for good and not abuse them
     "@typescript-eslint/ban-ts-comment": "warn",
     "@typescript-eslint/no-unsafe-assignment": "off",
@@ -56,6 +57,7 @@
     "@typescript-eslint/no-floating-promises": "warn",
     // Too restrictive rule
     "@typescript-eslint/no-unsafe-call": "warn",
+    "@typescript-eslint/no-non-null-assertion": "off",
     "@typescript-eslint/no-unsafe-argument": "warn",
     // Too restrictive rule
     "@typescript-eslint/no-unsafe-return": "warn",

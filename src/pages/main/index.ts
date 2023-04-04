@@ -1,6 +1,14 @@
-import Handlebars from 'handlebars';
-import { main } from './main';
+import template from './main.hbs';
+import { Block } from '@/shared/utils/Block';
 
-export const Main = () => {
-  return Handlebars.compile(main)({});
-};
+export class MainPage extends Block {
+  constructor() {
+    super('div');
+
+    this.element!.classList.add('centering');
+  }
+
+  render() {
+    return this.compile(template, this.props);
+  }
+}

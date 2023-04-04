@@ -1,0 +1,67 @@
+@use '../../styles/tools' as *;
+
+.avatar-popup {
+  &__container {
+    background-color: #fff;
+    box-shadow: 0 0 25px rgb(0 0 0 / 15%);
+    border-radius: 10px;
+    width: 100%;
+    width: 340px;
+    padding: 40px 30px;
+    box-sizing: border-box;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  &__title {
+    &_error {
+      color: $color-red;
+      font-size: 15px;
+    }
+  }
+}
+
+.avatar-popup-form {
+  @include flex-column;
+
+  width: $width-100;
+
+  &__fieldset {
+    @include flex-column;
+
+    gap: 45px;
+  }
+
+  &__label {
+    cursor: pointer;
+    font-size: $font-size-s;
+    color: $color-azure;
+    text-decoration: underline;
+    text-align: center;
+  }
+
+  &__input {
+    width: 0.1px;
+    height: 0.1px;
+    opacity: 0;
+    overflow: hidden;
+    position: absolute;
+    z-index: -1;
+  }
+
+  &__filename {
+    font-size: $font-size-s;
+    color: $color-grey;
+    text-align: center;
+    display: none;
+  }
+
+  &__error {
+    font-size: $font-size-s;
+    color: $color-red;
+    margin-top: 14px;
+    display: none;
+  }
+}

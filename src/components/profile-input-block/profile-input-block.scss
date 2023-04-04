@@ -1,0 +1,33 @@
+@use '../../styles/tools' as *;
+
+.profile-input-block {
+  display: flex;
+  justify-content: space-between;
+  width: $width-100;
+  font-size: $font-size-s;
+
+  &__label {
+    width: 50%;
+    border-bottom: 1px solid $color-light-grey;
+    padding-bottom: $pb-10;
+  }
+
+  &__input {
+    width: 50%;
+    border-bottom: 1px solid $color-light-grey;
+    text-align: end;
+    padding-bottom: $pb-10;
+
+    &:disabled {
+      background-color: transparent;
+    }
+
+    &::-webkit-input-placeholder {
+      @include input-placeholder;
+    }
+
+    &::-moz-placeholder {
+      @include input-placeholder;
+    }
+  }
+}

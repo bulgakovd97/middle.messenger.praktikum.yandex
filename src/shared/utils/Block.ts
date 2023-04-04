@@ -8,7 +8,7 @@ type BlockEvents<P = any> = {
   'flow:render': [],
 };
 
-type Props<P extends Record<string, unknown> = any> = { events?: Record<string, () => void> } & P;
+type Props<P extends Record<string, unknown> = any> = { events?: Record<string, (event: Event) => void> } & P;
 
 export class Block<P extends Record<string, any> = any, E extends HTMLElement = HTMLElement> {
   static EVENTS = {
@@ -67,7 +67,7 @@ export class Block<P extends Record<string, any> = any, E extends HTMLElement = 
   }
 
   private _addEvents() {
-    const { events = {} } = this.props as unknown as { events: Record<string, () => void> };
+    const { events = {} } = this.props as { events: Record<string, (event: Event) => void> };
 
     Object.keys(events).forEach((eventName) => {
       this._element?.addEventListener(eventName, events[eventName]);
@@ -126,7 +126,7 @@ export class Block<P extends Record<string, any> = any, E extends HTMLElement = 
     return true;
   }
 
-  protected setProps = (nextProps: Partial<Props<P>>) => {
+  public setProps = (nextProps: Partial<Props<P>>) => {
     if (!nextProps) {
       return;
     }
@@ -141,13 +141,9 @@ export class Block<P extends Record<string, any> = any, E extends HTMLElement = 
   private _render() {
     const fragment = this.render();
 
-    const newElement = fragment.firstElementChild as HTMLElement;
+    this._element!.innerHTML = '';
 
-    if (this._element && newElement) {
-      this._element.replaceWith(newElement);
-    }
-
-    this._element = newElement as E;
+    this._element!.append(fragment);
 
     this._addEvents();
   }
@@ -196,7 +192,7 @@ export class Block<P extends Record<string, any> = any, E extends HTMLElement = 
     return new DocumentFragment();
   }
 
-  protected getContent() {
+  public getContent() {
     return this.element;
   }
 

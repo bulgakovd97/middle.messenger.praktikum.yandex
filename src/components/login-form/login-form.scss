@@ -1,0 +1,22 @@
+@use '../../styles/tools' as *;
+
+.login-container {
+  @include flex-row;
+
+  height: $height-100;
+}
+
+.login {
+  @include flex-column;
+  @include popup-shape;
+
+  margin: auto;
+  width: 340px;
+  padding: 50px 30px 30px;
+
+  &__title {
+    font-size: $font-size-m;
+    line-height: $line-height;
+    padding-bottom: 40px;
+  }
+}

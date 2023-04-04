@@ -1,0 +1,35 @@
+@use '../../../styles/tools' as *;
+
+.search {
+  @include flex-row;
+
+  background-color: $color-xlight-grey;
+  border-radius: 5px;
+  width: 100%;
+  padding: 6px 0;
+  margin-top: 23px;
+  margin-bottom: 14px;
+
+  &__icon {
+    width: 20px;
+    height: 20px;
+    margin-left: 5px;
+  }
+
+  &__input {
+    text-align: center;
+    font-size: $font-size-s;
+    line-height: $line-height;
+    font-weight: $medium;
+    background-color: transparent;;
+    transform: translate(-8px);
+
+    &::-webkit-input-placeholder {
+      @include input-placeholder;
+    }
+
+    &::-moz-placeholder {
+      @include input-placeholder;;
+    }
+  }
+}

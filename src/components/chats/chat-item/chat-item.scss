@@ -1,0 +1,93 @@
+@use '../../../styles/tools' as *;
+
+.chat-item {
+  @include flex-row;
+
+  max-width: $width-100;
+  justify-content: space-between;
+  height: 72px;
+  gap: 12px;
+  cursor: pointer;
+  border-top: 1px solid;
+  border-color: $color-light-grey;
+
+  &:hover {
+    color: $color-black;
+    background-color: $color-azure;
+    opacity: .85;
+  }
+
+  &__avatar-container {
+    @include flex-column;
+
+    background-color: $color-xlight-grey;
+    border-radius: $border-circle;
+    min-width: 47px;
+    height: 47px;
+  }
+
+  &__avatar {
+    background-color: $color-xlight-grey;
+    background-image: url('/static/avatar.svg');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 20px 20px;
+    width: $width-100;
+    height: $height-100;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+
+  &__message-block {
+    width: $width-100;
+  }
+
+  &__name {
+    color: $color-black;
+    font-size: $font-size-s;
+    line-height: $line-height;
+    font-weight: $semi-bold;
+    padding-bottom: 4px;
+  }
+
+  &__message {
+    font-size: $font-size-s;
+    line-height: $line-height;
+    font-weight: $medium;
+    max-height: 30px;
+    white-space: normal;
+    text-overflow: ellipsis;
+    overflow: hidden;
+  }
+
+  &__notification {
+    @include flex-column;
+
+    min-width: 30px;
+  }
+
+  &__time {
+    @include flex-row;
+
+    font-size: $font-size-xs;
+    line-height: $line-height;
+    font-weight: $medium;
+    white-space: normal;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    padding-bottom: 14px;
+  }
+
+  &__unread-amount {
+    @include flex-row;
+
+    height: 23px;
+    width: 23px;
+    background-color: $color-azure;
+    color: $color-white;
+    font-size: $font-size-s;
+    line-height: $line-height;
+    font-weight: $medium;
+    border-radius: $border-circle;
+  }
+}

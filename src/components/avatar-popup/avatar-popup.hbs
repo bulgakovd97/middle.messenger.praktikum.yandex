@@ -1,0 +1,12 @@
+<div class="avatar-popup__container">
+  <h1 class="popup__title avatar-popup__title {{ errorClass }}">{{ title }}</h1>
+  <form class="avatar-popup-form">
+    <fieldset class="avatar-popup-form__fieldset">
+      <label class="avatar-popup-form__label" for="avatar">Выбрать файл на&nbsp;компьютере</label>
+      <input class="avatar-popup-form__input" type="file" accept="image/png, image/jpeg" id="avatar" name="avatar" />
+      <p class="avatar-popup-form__filename {{ fileNameError }}">{{ fileName }}</p>
+      {{{submitButton}}}
+    </fieldset>
+    <p class="avatar-popup-form__error">Нужно выбрать файл</p>
+  </form>
+</div>

@@ -1,0 +1,42 @@
+@use '../../styles/tools' as *;
+
+.avatar {
+  @include flex-column;
+
+  position: relative;
+  width: 130px;
+  height: 130px;
+  background-color: $color-xlight-grey;
+  border-radius: $border-circle;
+
+  &__photo {
+    background-image: url('/static/avatar.svg');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 40px 40px;
+    width: $width-100;
+    height: $height-100 ;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+
+  &__button {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    font-size: $font-size-s;
+    padding-left: 33px;
+    padding-right: 33px;
+    border-radius: $border-circle;
+    color: $color-white;
+    background-color: $color-black;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+
+    &:hover {
+      opacity: .7;
+    }
+  }
+}
