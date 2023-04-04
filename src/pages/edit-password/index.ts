@@ -100,14 +100,14 @@ export class EditPasswordPage extends Block {
 
         if ((index === array.length - 1) && input.value !== passwordValue) {
           error.style.display = 'block';
-          input.style.borderBottom = '1px solid #ff2f2f';
-          label.style.borderBottom = '1px solid #ff2f2f';
+          input.style.borderBottomColor = '#ff2f2f';
+          label.style.borderBottomColor = '#ff2f2f';
           return;
         }
 
         error.style.display = 'none';
-        input.style.borderBottom = '1px solid #eaeaea';
-        label.style.borderBottom = '1px solid #eaeaea';
+        input.style.borderBottomColor = '#eaeaea';
+        label.style.borderBottomColor = '#eaeaea';
 
         validInputs.push(input);
       }

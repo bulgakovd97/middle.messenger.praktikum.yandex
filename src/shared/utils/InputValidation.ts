@@ -122,10 +122,10 @@ export class InputValidation {
 
   private _showError(): void {
     this._error!.style.display = 'block';
-    this._input!.style.borderBottom = '1px solid #ff2f2f';
+    this._input!.style.borderBottomColor = '#ff2f2f';
 
     if (this._error!.classList.contains('profile-input-block__error')) {
-      this._label!.style.borderBottom = '1px solid #ff2f2f';
+      this._label!.style.borderBottomColor = '#ff2f2f';
     }
   }
 
@@ -133,10 +133,10 @@ export class InputValidation {
     this._error!.style.display = 'none';
 
     if (this._error!.classList.contains('profile-input-block__error')) {
-      this._input!.style.borderBottom = '1px solid #eaeaea';
-      this._label!.style.borderBottom = '1px solid #eaeaea';
+      this._input!.style.borderBottomColor = '#eaeaea';
+      this._label!.style.borderBottomColor = '#eaeaea';
     } else {
-      this._input!.style.borderBottom = '1px solid #0ec2c2';
+      this._input!.style.borderBottomColor = '#0ec2c2';
     }
   }
 }

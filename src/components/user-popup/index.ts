@@ -2,7 +2,6 @@ import { InputValidation } from '@/shared/utils/InputValidation';
 import { InputBlock } from '../input-block';
 import template from './user-popup.hbs';
 import { Block } from '@/shared/utils/Block';
-import { loginMaxLength, loginMinLength, loginRegex } from '@/shared/lib';
 import { SubmitButton } from '../submit-button';
 
 interface UserPopupProps {
@@ -29,22 +28,8 @@ export class UserPopup extends Block<UserPopupProps> {
       errorClass: 'input-block__error_type_login',
       errorMessage: 'Неверный логин',
       events: {
-        focusin: (event) => new InputValidation({
-          input: event.target as HTMLInputElement,
-          checkData: {
-            regex: loginRegex,
-            minLength: loginMinLength,
-            maxLength: loginMaxLength,
-          },
-        }).validate(),
-        focusout: (event) => new InputValidation({
-          input: event.target as HTMLInputElement,
-          checkData: {
-            regex: loginRegex,
-            minLength: loginMinLength,
-            maxLength: loginMaxLength,
-          },
-        }).validate(),
+        focusin: (event) => new InputValidation(event.target as HTMLInputElement).validate(),
+        focusout: (event) => new InputValidation(event.target as HTMLInputElement).validate(),
       },
     });
 

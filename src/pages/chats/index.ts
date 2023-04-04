@@ -147,6 +147,7 @@ export class ChatsPage extends Block {
     this._userPopup!.element?.classList.remove('popup_opened');
     this._userDropDown!.classList.remove('dropdown_opened');
     this._loginInput!.value = '';
+    this._loginInput!.style.borderBottomColor = '#0ec2c2';
     (this._userPopup!.element!.querySelector('.input-block__error') as HTMLParagraphElement)!.style.display = 'none';
   }
 
@@ -162,6 +163,8 @@ export class ChatsPage extends Block {
     if (isValid) {
       const { name, value } = input;
       console.log(`${name}:`, value);
+
+      this._closePopup();
     }
   }
 
