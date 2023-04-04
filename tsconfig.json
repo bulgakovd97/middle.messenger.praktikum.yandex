@@ -15,7 +15,7 @@
       ],
       "@/shared/*": [
         "src/shared/*"
-      ],
+      ]
     },
     "resolveJsonModule": true,
     "declaration": false,
@@ -40,9 +40,9 @@
   },
   "include": [
     "**/*.ts",
-    "hbs.config.js",
+    "hbs.config.js"
   ],
   "exclude": [
-    "node_modules",
+    "node_modules"
   ]
 }
