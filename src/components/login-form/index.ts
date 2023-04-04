@@ -1,16 +1,8 @@
-import {
-  loginMaxLength,
-  loginMinLength,
-  loginRegex,
-  passwordMaxLength,
-  passwordMinLength,
-  passwordRegex,
-} from '@/shared/lib';
 import { InputBlock } from '../input-block';
 import { SubmitButton } from '../submit-button';
 import template from './login-form.hbs';
 import { Block } from '@/shared/utils/Block';
-import { CheckDataProps, InputValidation } from '@/shared/utils/FormValidation';
+import { InputValidation } from '@/shared/utils/InputValidation';
 
 interface LoginFormProps {
   title: string;
@@ -44,22 +36,8 @@ export class LoginForm extends Block<LoginFormProps> {
       errorClass: 'input-block__error_type_login',
       errorMessage: 'Неверный логин',
       events: {
-        focusin: (event) => new InputValidation({
-          input: event.target as HTMLInputElement,
-          checkData: {
-            regex: loginRegex,
-            minLength: loginMinLength,
-            maxLength: loginMaxLength,
-          },
-        }).validate(),
-        focusout: (event) => new InputValidation({
-          input: event.target as HTMLInputElement,
-          checkData: {
-            regex: loginRegex,
-            minLength: loginMinLength,
-            maxLength: loginMaxLength,
-          },
-        }).validate(),
+        focusin: (event) => new InputValidation(event.target as HTMLInputElement).validate(),
+        focusout: (event) => new InputValidation(event.target as HTMLInputElement).validate(),
       },
     });
 
@@ -73,22 +51,8 @@ export class LoginForm extends Block<LoginFormProps> {
       errorClass: 'input-block__error_type_password',
       errorMessage: 'Неверный пароль',
       events: {
-        focusin: (event) => new InputValidation({
-          input: event.target as HTMLInputElement,
-          checkData: {
-            regex: passwordRegex,
-            minLength: passwordMinLength,
-            maxLength: passwordMaxLength,
-          },
-        }).validate(),
-        focusout: (event) => new InputValidation({
-          input: event.target as HTMLInputElement,
-          checkData: {
-            regex: passwordRegex,
-            minLength: passwordMinLength,
-            maxLength: passwordMaxLength,
-          },
-        }).validate(),
+        focusin: (event) => new InputValidation(event.target as HTMLInputElement).validate(),
+        focusout: (event) => new InputValidation(event.target as HTMLInputElement).validate(),
       },
     });
   }
@@ -104,25 +68,7 @@ export class LoginForm extends Block<LoginFormProps> {
     const validInputs: HTMLInputElement[] = [];
 
     form.querySelectorAll('input').forEach((input) => {
-      const { name } = input;
-
-      let checkData: CheckDataProps;
-
-      if (name === 'login') {
-        checkData = {
-          regex: loginRegex,
-          minLength: loginMinLength,
-          maxLength: loginMaxLength,
-        };
-      } else {
-        checkData = {
-          regex: passwordRegex,
-          minLength: passwordMinLength,
-          maxLength: passwordMaxLength,
-        };
-      }
-
-      const isValid = new InputValidation({ input, checkData }).validate();
+      const isValid = new InputValidation(input).validate();
 
       if (isValid) {
         validInputs.push(input);

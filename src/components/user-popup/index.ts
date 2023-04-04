@@ -1,4 +1,4 @@
-import { InputValidation } from '@/shared/utils/FormValidation';
+import { InputValidation } from '@/shared/utils/InputValidation';
 import { InputBlock } from '../input-block';
 import template from './user-popup.hbs';
 import { Block } from '@/shared/utils/Block';

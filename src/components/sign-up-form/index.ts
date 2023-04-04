@@ -1,25 +1,8 @@
-import {
-  emailMaxLength,
-  emailMinLength,
-  emailRegex,
-  loginMaxLength,
-  loginMinLength,
-  loginRegex,
-  nameMaxLength,
-  nameMinLength,
-  nameRegex,
-  passwordMaxLength,
-  passwordMinLength,
-  passwordRegex,
-  phoneMaxLength,
-  phoneMinLength,
-  phoneRegex,
-} from '@/shared/lib';
 import { InputBlock } from '../input-block';
 import { SubmitButton } from '../submit-button';
 import template from './sign-up-form.hbs';
 import { Block } from '@/shared/utils/Block';
-import { InputValidation, CheckDataProps } from '@/shared/utils/FormValidation';
+import { InputValidation } from '@/shared/utils/InputValidation';
 
 interface SignUpFormProps {
   title: string;
@@ -53,22 +36,8 @@ export class SignUpForm extends Block<SignUpFormProps> {
       errorClass: 'input-block__error_type_email',
       errorMessage: 'Неверная почта',
       events: {
-        focusin: (event) => new InputValidation({
-          input: event.target as HTMLInputElement,
-          checkData: {
-            regex: emailRegex,
-            minLength: emailMinLength,
-            maxLength: emailMaxLength,
-          },
-        }).validate(),
-        focusout: (event) => new InputValidation({
-          input: event.target as HTMLInputElement,
-          checkData: {
-            regex: emailRegex,
-            minLength: emailMinLength,
-            maxLength: emailMaxLength,
-          },
-        }).validate(),
+        focusin: (event) => new InputValidation(event.target as HTMLInputElement).validate(),
+        focusout: (event) => new InputValidation(event.target as HTMLInputElement).validate(),
       },
     });
 
@@ -82,22 +51,8 @@ export class SignUpForm extends Block<SignUpFormProps> {
       errorClass: 'input-block__error_type_login',
       errorMessage: 'Неверный логин',
       events: {
-        focusin: (event) => new InputValidation({
-          input: event.target as HTMLInputElement,
-          checkData: {
-            regex: loginRegex,
-            minLength: loginMinLength,
-            maxLength: loginMaxLength,
-          },
-        }).validate(),
-        focusout: (event) => new InputValidation({
-          input: event.target as HTMLInputElement,
-          checkData: {
-            regex: loginRegex,
-            minLength: loginMinLength,
-            maxLength: loginMaxLength,
-          },
-        }).validate(),
+        focusin: (event) => new InputValidation(event.target as HTMLInputElement).validate(),
+        focusout: (event) => new InputValidation(event.target as HTMLInputElement).validate(),
       },
     });
 
@@ -111,22 +66,8 @@ export class SignUpForm extends Block<SignUpFormProps> {
       errorClass: 'input-block__error_type_firstname',
       errorMessage: 'Неверное имя',
       events: {
-        focusin: (event) => new InputValidation({
-          input: event.target as HTMLInputElement,
-          checkData: {
-            regex: nameRegex,
-            minLength: nameMinLength,
-            maxLength: nameMaxLength,
-          },
-        }).validate(),
-        focusout: (event) => new InputValidation({
-          input: event.target as HTMLInputElement,
-          checkData: {
-            regex: nameRegex,
-            minLength: nameMinLength,
-            maxLength: nameMaxLength,
-          },
-        }).validate(),
+        focusin: (event) => new InputValidation(event.target as HTMLInputElement).validate(),
+        focusout: (event) => new InputValidation(event.target as HTMLInputElement).validate(),
       },
     });
 
@@ -140,22 +81,8 @@ export class SignUpForm extends Block<SignUpFormProps> {
       errorClass: 'input-block__error_type_surname',
       errorMessage: 'Неверная фамилия',
       events: {
-        focusin: (event) => new InputValidation({
-          input: event.target as HTMLInputElement,
-          checkData: {
-            regex: nameRegex,
-            minLength: nameMinLength,
-            maxLength: nameMaxLength,
-          },
-        }).validate(),
-        focusout: (event) => new InputValidation({
-          input: event.target as HTMLInputElement,
-          checkData: {
-            regex: nameRegex,
-            minLength: nameMinLength,
-            maxLength: nameMaxLength,
-          },
-        }).validate(),
+        focusin: (event) => new InputValidation(event.target as HTMLInputElement).validate(),
+        focusout: (event) => new InputValidation(event.target as HTMLInputElement).validate(),
       },
     });
 
@@ -169,22 +96,8 @@ export class SignUpForm extends Block<SignUpFormProps> {
       errorClass: 'input-block__error_type_phone',
       errorMessage: 'Неверный номер телефона',
       events: {
-        focusin: (event) => new InputValidation({
-          input: event.target as HTMLInputElement,
-          checkData: {
-            regex: phoneRegex,
-            minLength: phoneMinLength,
-            maxLength: phoneMaxLength,
-          },
-        }).validate(),
-        focusout: (event) => new InputValidation({
-          input: event.target as HTMLInputElement,
-          checkData: {
-            regex: phoneRegex,
-            minLength: phoneMinLength,
-            maxLength: phoneMaxLength,
-          },
-        }).validate(),
+        focusin: (event) => new InputValidation(event.target as HTMLInputElement).validate(),
+        focusout: (event) => new InputValidation(event.target as HTMLInputElement).validate(),
       },
     });
 
@@ -198,22 +111,8 @@ export class SignUpForm extends Block<SignUpFormProps> {
       errorClass: 'input-block__error_type_password',
       errorMessage: 'Неверный пароль',
       events: {
-        focusin: (event) => new InputValidation({
-          input: event.target as HTMLInputElement,
-          checkData: {
-            regex: passwordRegex,
-            minLength: passwordMinLength,
-            maxLength: passwordMaxLength,
-          },
-        }).validate(),
-        focusout: (event) => new InputValidation({
-          input: event.target as HTMLInputElement,
-          checkData: {
-            regex: passwordRegex,
-            minLength: passwordMinLength,
-            maxLength: passwordMaxLength,
-          },
-        }).validate(),
+        focusin: (event) => new InputValidation(event.target as HTMLInputElement).validate(),
+        focusout: (event) => new InputValidation(event.target as HTMLInputElement).validate(),
       },
     });
 
@@ -227,22 +126,8 @@ export class SignUpForm extends Block<SignUpFormProps> {
       errorClass: 'input-block__error_type_password-repeat',
       errorMessage: 'Пароли не совпадают',
       events: {
-        focusin: (event) => new InputValidation({
-          input: event.target as HTMLInputElement,
-          checkData: {
-            regex: passwordRegex,
-            minLength: passwordMinLength,
-            maxLength: passwordMaxLength,
-          },
-        }).validate(),
-        focusout: (event) => new InputValidation({
-          input: event.target as HTMLInputElement,
-          checkData: {
-            regex: passwordRegex,
-            minLength: passwordMinLength,
-            maxLength: passwordMaxLength,
-          },
-        }).validate(),
+        focusin: (event) => new InputValidation(event.target as HTMLInputElement).validate(),
+        focusout: (event) => new InputValidation(event.target as HTMLInputElement).validate(),
       },
     });
   }
@@ -259,43 +144,7 @@ export class SignUpForm extends Block<SignUpFormProps> {
     const validInputs: HTMLInputElement[] = [];
 
     form.querySelectorAll('input').forEach((input, index, array) => {
-      const { name } = input;
-
-      let checkData: CheckDataProps;
-
-      if (name === 'login') {
-        checkData = {
-          regex: loginRegex,
-          minLength: loginMinLength,
-          maxLength: loginMaxLength,
-        };
-      } else if (name.endsWith('name')) {
-        checkData = {
-          regex: nameRegex,
-          minLength: nameMinLength,
-          maxLength: nameMaxLength,
-        };
-      } else if (name === 'email') {
-        checkData = {
-          regex: emailRegex,
-          minLength: emailMinLength,
-          maxLength: emailMaxLength,
-        };
-      } else if (name === 'phone') {
-        checkData = {
-          regex: phoneRegex,
-          minLength: phoneMinLength,
-          maxLength: phoneMaxLength,
-        };
-      } else {
-        checkData = {
-          regex: passwordRegex,
-          minLength: passwordMinLength,
-          maxLength: passwordMaxLength,
-        };
-      }
-
-      const isValid = new InputValidation({ input, checkData }).validate();
+      const isValid = new InputValidation(input).validate();
 
       const passwordValue = array[array.length - 2].value;
 

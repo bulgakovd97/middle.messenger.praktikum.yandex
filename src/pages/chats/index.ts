@@ -8,8 +8,7 @@ import {
 import template from './chats.hbs';
 import { Block } from '@/shared/utils/Block';
 import { UserPopup } from '@/components/user-popup';
-import { CheckDataProps, InputValidation } from '@/shared/utils/FormValidation';
-import { loginMaxLength, loginMinLength, loginRegex } from '@/shared/lib';
+import { InputValidation } from '@/shared/utils/InputValidation';
 import { mockChats } from '@/shared/data';
 
 export class ChatsPage extends Block {
@@ -156,19 +155,12 @@ export class ChatsPage extends Block {
 
     const button = event.target as HTMLButtonElement;
 
-    const input = button.previousElementSibling!.querySelector('input');
+    const input = button.previousElementSibling!.querySelector('input')!;
 
-    const checkData: CheckDataProps = {
-      regex: loginRegex,
-      minLength: loginMinLength,
-      maxLength: loginMaxLength,
-    };
-
-    const isValid = new InputValidation({ input, checkData }).validate();
+    const isValid = new InputValidation(input).validate();
 
     if (isValid) {
-      const { name, value } = input!;
-
+      const { name, value } = input;
       console.log(`${name}:`, value);
     }
   }

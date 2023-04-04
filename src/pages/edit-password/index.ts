@@ -6,8 +6,7 @@ import {
   ProfileInputBlock,
   SubmitButton,
 } from '../../components';
-import { CheckDataProps, InputValidation } from '@/shared/utils/FormValidation';
-import { passwordMaxLength, passwordMinLength, passwordRegex } from '@/shared/lib';
+import { InputValidation } from '@/shared/utils/InputValidation';
 
 export class EditPasswordPage extends Block {
   private _form: HTMLFormElement | null;
@@ -39,22 +38,8 @@ export class EditPasswordPage extends Block {
       errorMessage: 'Неверный пароль',
       disabled: false,
       events: {
-        focusin: (event) => new InputValidation({
-          input: event.target as HTMLInputElement,
-          checkData: {
-            regex: passwordRegex,
-            minLength: passwordMinLength,
-            maxLength: passwordMaxLength,
-          },
-        }).validate(),
-        focusout: (event) => new InputValidation({
-          input: event.target as HTMLInputElement,
-          checkData: {
-            regex: passwordRegex,
-            minLength: passwordMinLength,
-            maxLength: passwordMaxLength,
-          },
-        }).validate(),
+        focusin: (event) => new InputValidation(event.target as HTMLInputElement).validate(),
+        focusout: (event) => new InputValidation(event.target as HTMLInputElement).validate(),
       },
     });
 
@@ -68,22 +53,8 @@ export class EditPasswordPage extends Block {
       errorMessage: 'Неверный пароль',
       disabled: false,
       events: {
-        focusin: (event) => new InputValidation({
-          input: event.target as HTMLInputElement,
-          checkData: {
-            regex: passwordRegex,
-            minLength: passwordMinLength,
-            maxLength: passwordMaxLength,
-          },
-        }).validate(),
-        focusout: (event) => new InputValidation({
-          input: event.target as HTMLInputElement,
-          checkData: {
-            regex: passwordRegex,
-            minLength: passwordMinLength,
-            maxLength: passwordMaxLength,
-          },
-        }).validate(),
+        focusin: (event) => new InputValidation(event.target as HTMLInputElement).validate(),
+        focusout: (event) => new InputValidation(event.target as HTMLInputElement).validate(),
       },
     });
 
@@ -97,22 +68,8 @@ export class EditPasswordPage extends Block {
       errorMessage: 'Пароли не совпадают',
       disabled: false,
       events: {
-        focusin: (event) => new InputValidation({
-          input: event.target as HTMLInputElement,
-          checkData: {
-            regex: passwordRegex,
-            minLength: passwordMinLength,
-            maxLength: passwordMaxLength,
-          },
-        }).validate(),
-        focusout: (event) => new InputValidation({
-          input: event.target as HTMLInputElement,
-          checkData: {
-            regex: passwordRegex,
-            minLength: passwordMinLength,
-            maxLength: passwordMaxLength,
-          },
-        }).validate(),
+        focusin: (event) => new InputValidation(event.target as HTMLInputElement).validate(),
+        focusout: (event) => new InputValidation(event.target as HTMLInputElement).validate(),
       },
     });
   }
@@ -133,13 +90,7 @@ export class EditPasswordPage extends Block {
     const validInputs: HTMLInputElement[] = [];
 
     form.querySelectorAll('input').forEach((input, index, array) => {
-      const checkData: CheckDataProps = {
-        regex: passwordRegex,
-        minLength: passwordMinLength,
-        maxLength: passwordMaxLength,
-      };
-
-      const isValid = new InputValidation({ input, checkData }).validate();
+      const isValid = new InputValidation(input).validate();
 
       const passwordValue = array[array.length - 2].value;
 

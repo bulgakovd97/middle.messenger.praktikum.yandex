@@ -1,17 +1,3 @@
-import {
-  emailMaxLength,
-  emailMinLength,
-  emailRegex,
-  loginMaxLength,
-  loginMinLength,
-  loginRegex,
-  nameMaxLength,
-  nameMinLength,
-  nameRegex,
-  phoneMaxLength,
-  phoneMinLength,
-  phoneRegex,
-} from '@/shared/lib';
 import template from './profile.hbs';
 import { Block } from '@/shared/utils/Block';
 import {
@@ -22,7 +8,7 @@ import {
   SubmitButton,
   AvatarPopup,
 } from '../../components';
-import { InputValidation, CheckDataProps } from '@/shared/utils/FormValidation';
+import { InputValidation } from '@/shared/utils/InputValidation';
 
 export class ProfilePage extends Block {
   private _form: HTMLFormElement | null;
@@ -72,22 +58,8 @@ export class ProfilePage extends Block {
       errorMessage: 'Неверная почта',
       disabled: true,
       events: {
-        focusin: (event) => new InputValidation({
-          input: event.target as HTMLInputElement,
-          checkData: {
-            regex: emailRegex,
-            minLength: emailMinLength,
-            maxLength: emailMaxLength,
-          },
-        }).validate(),
-        focusout: (event) => new InputValidation({
-          input: event.target as HTMLInputElement,
-          checkData: {
-            regex: emailRegex,
-            minLength: emailMinLength,
-            maxLength: emailMaxLength,
-          },
-        }).validate(),
+        focusin: (event) => new InputValidation(event.target as HTMLInputElement).validate(),
+        focusout: (event) => new InputValidation(event.target as HTMLInputElement).validate(),
       },
     });
 
@@ -101,22 +73,8 @@ export class ProfilePage extends Block {
       errorMessage: 'Неверный логин',
       disabled: true,
       events: {
-        focusin: (event) => new InputValidation({
-          input: event.target as HTMLInputElement,
-          checkData: {
-            regex: loginRegex,
-            minLength: loginMinLength,
-            maxLength: loginMaxLength,
-          },
-        }).validate(),
-        focusout: (event) => new InputValidation({
-          input: event.target as HTMLInputElement,
-          checkData: {
-            regex: loginRegex,
-            minLength: loginMinLength,
-            maxLength: loginMaxLength,
-          },
-        }).validate(),
+        focusin: (event) => new InputValidation(event.target as HTMLInputElement).validate(),
+        focusout: (event) => new InputValidation(event.target as HTMLInputElement).validate(),
       },
     });
 
@@ -130,22 +88,8 @@ export class ProfilePage extends Block {
       errorMessage: 'Неверное имя',
       disabled: true,
       events: {
-        focusin: (event) => new InputValidation({
-          input: event.target as HTMLInputElement,
-          checkData: {
-            regex: nameRegex,
-            minLength: nameMinLength,
-            maxLength: nameMaxLength,
-          },
-        }).validate(),
-        focusout: (event) => new InputValidation({
-          input: event.target as HTMLInputElement,
-          checkData: {
-            regex: nameRegex,
-            minLength: nameMinLength,
-            maxLength: nameMaxLength,
-          },
-        }).validate(),
+        focusin: (event) => new InputValidation(event.target as HTMLInputElement).validate(),
+        focusout: (event) => new InputValidation(event.target as HTMLInputElement).validate(),
       },
     });
 
@@ -159,22 +103,8 @@ export class ProfilePage extends Block {
       errorMessage: 'Неверная фамилия',
       disabled: true,
       events: {
-        focusin: (event) => new InputValidation({
-          input: event.target as HTMLInputElement,
-          checkData: {
-            regex: nameRegex,
-            minLength: nameMinLength,
-            maxLength: nameMaxLength,
-          },
-        }).validate(),
-        focusout: (event) => new InputValidation({
-          input: event.target as HTMLInputElement,
-          checkData: {
-            regex: nameRegex,
-            minLength: nameMinLength,
-            maxLength: nameMaxLength,
-          },
-        }).validate(),
+        focusin: (event) => new InputValidation(event.target as HTMLInputElement).validate(),
+        focusout: (event) => new InputValidation(event.target as HTMLInputElement).validate(),
       },
     });
 
@@ -188,22 +118,8 @@ export class ProfilePage extends Block {
       errorMessage: 'Неверное имя',
       disabled: true,
       events: {
-        focusin: (event) => new InputValidation({
-          input: event.target as HTMLInputElement,
-          checkData: {
-            regex: nameRegex,
-            minLength: nameMinLength,
-            maxLength: nameMaxLength,
-          },
-        }).validate(),
-        focusout: (event) => new InputValidation({
-          input: event.target as HTMLInputElement,
-          checkData: {
-            regex: nameRegex,
-            minLength: nameMinLength,
-            maxLength: nameMaxLength,
-          },
-        }).validate(),
+        focusin: (event) => new InputValidation(event.target as HTMLInputElement).validate(),
+        focusout: (event) => new InputValidation(event.target as HTMLInputElement).validate(),
       },
     });
 
@@ -217,22 +133,8 @@ export class ProfilePage extends Block {
       errorMessage: 'Неверный номер телефона',
       disabled: true,
       events: {
-        focusin: (event) => new InputValidation({
-          input: event.target as HTMLInputElement,
-          checkData: {
-            regex: phoneRegex,
-            minLength: phoneMinLength,
-            maxLength: phoneMaxLength,
-          },
-        }).validate(),
-        focusout: (event) => new InputValidation({
-          input: event.target as HTMLInputElement,
-          checkData: {
-            regex: phoneRegex,
-            minLength: phoneMinLength,
-            maxLength: phoneMaxLength,
-          },
-        }).validate(),
+        focusin: (event) => new InputValidation(event.target as HTMLInputElement).validate(),
+        focusout: (event) => new InputValidation(event.target as HTMLInputElement).validate(),
       },
     });
 
@@ -287,6 +189,7 @@ export class ProfilePage extends Block {
         fileNameError: 'visible-block',
         photoSrc: window.URL.createObjectURL(file),
       });
+
       avatarPopup.element!.querySelector('h1')?.classList.remove('avatar-popup__title_error');
       avatarPopup.element!.querySelector('.avatar-popup-form__error')?.classList.remove('visible-block');
     } else {
@@ -313,37 +216,7 @@ export class ProfilePage extends Block {
     const validInputs: HTMLInputElement[] = [];
 
     form.querySelectorAll('input').forEach((input) => {
-      const { name } = input;
-
-      let checkData: CheckDataProps;
-
-      if (name === 'login') {
-        checkData = {
-          regex: loginRegex,
-          minLength: loginMinLength,
-          maxLength: loginMaxLength,
-        };
-      } else if (name.endsWith('name')) {
-        checkData = {
-          regex: nameRegex,
-          minLength: nameMinLength,
-          maxLength: nameMaxLength,
-        };
-      } else if (name === 'email') {
-        checkData = {
-          regex: emailRegex,
-          minLength: emailMinLength,
-          maxLength: emailMaxLength,
-        };
-      } else {
-        checkData = {
-          regex: phoneRegex,
-          minLength: phoneMinLength,
-          maxLength: phoneMaxLength,
-        };
-      }
-
-      const isValid = new InputValidation({ input, checkData }).validate();
+      const isValid = new InputValidation(input).validate();
 
       if (isValid) {
         validInputs.push(input);
