@@ -14,12 +14,12 @@ import {
   phoneMaxLength,
   phoneMinLength,
   phoneRegex,
-} from '@/shared/lib';
+} from '../../shared/lib';
 import { InputBlock } from '../input-block';
 import { SubmitButton } from '../submit-button';
 import template from './sign-up-form.hbs';
-import { Block } from '@/shared/utils/Block';
-import { InputValidation, CheckDataProps } from '@/shared/utils/FormValidation';
+import { Block } from '../../shared/utils/Block';
+import { InputValidation, CheckDataProps } from '../../shared/utils/FormValidation';
 
 interface SignUpFormProps {
   title: string;

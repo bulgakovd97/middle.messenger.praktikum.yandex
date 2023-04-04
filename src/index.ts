@@ -7,9 +7,9 @@ import {
   MainPage,
   NotFoundPage,
   ProfilePage,
-} from '@/pages/index';
-import { Routes } from '@/shared/lib';
-import { Block } from '@/shared/utils/Block';
+} from './pages';
+import { Routes } from './shared/lib';
+import { Block } from './shared/utils/Block';
 
 const {
   LOGIN,

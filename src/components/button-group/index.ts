@@ -1,5 +1,5 @@
 import template from './button-group.hbs';
-import { Block } from '@/shared/utils/Block';
+import { Block } from '../../shared/utils/Block';
 
 interface ButtonGroupProps {
   className: string[];

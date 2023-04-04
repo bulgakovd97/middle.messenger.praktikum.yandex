@@ -1,6 +1,6 @@
-import { MessageType, mockChats } from '@/shared/data';
+import { MessageType, mockChats } from '../../../shared/data';
 import template from './chat-item.hbs';
-import { Block } from '@/shared/utils/Block';
+import { Block } from '../../../shared/utils/Block';
 
 interface ChatItemProps {
   chatId: number;

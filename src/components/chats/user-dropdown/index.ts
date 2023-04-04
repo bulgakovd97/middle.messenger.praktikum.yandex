@@ -1,5 +1,5 @@
 import template from './user-dropdown.hbs';
-import { Block } from '@/shared/utils/Block';
+import { Block } from '../../../shared/utils/Block';
 
 interface UserDropDownProps {
   className: string;

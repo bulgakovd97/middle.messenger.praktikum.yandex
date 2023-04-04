@@ -1,5 +1,5 @@
 import template from './attachment-dropdown.hbs';
-import { Block } from '@/shared/utils/Block';
+import { Block } from '../../../shared/utils/Block';
 
 interface AttachmentDropDownProps {
   className: string;

@@ -1,5 +1,5 @@
 import template from './main.hbs';
-import { Block } from '@/shared/utils/Block';
+import { Block } from '../../shared/utils/Block';
 
 export class MainPage extends Block {
   constructor() {

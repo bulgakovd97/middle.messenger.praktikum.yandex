@@ -1,5 +1,5 @@
 import template from './feed.hbs';
-import { Block } from '@/shared/utils/Block';
+import { Block } from '../../../shared/utils/Block';
 import { UserDropDown } from '../user-dropdown';
 import { AttachmentDropDown } from '../attachment-dropdown';
 

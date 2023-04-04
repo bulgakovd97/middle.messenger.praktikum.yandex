@@ -1,5 +1,5 @@
 import template from './input-block.hbs';
-import { Block } from '@/shared/utils/Block';
+import { Block } from '../../shared/utils/Block';
 
 interface InputBlockProps {
   for: string;

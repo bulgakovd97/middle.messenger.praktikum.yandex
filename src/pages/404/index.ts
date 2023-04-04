@@ -1,6 +1,6 @@
 import template from './404.hbs';
-import { Block } from '@/shared/utils/Block';
-import { Error } from '@/components/index';
+import { Block } from '../../shared/utils/Block';
+import { Error } from '../../components/error';
 
 export class NotFoundPage extends Block {
   constructor() {

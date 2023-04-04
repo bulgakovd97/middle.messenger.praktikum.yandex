@@ -1,13 +1,13 @@
 import template from './edit-password.hbs';
-import { Block } from '@/shared/utils/Block';
+import { Block } from '../../shared/utils/Block';
 import {
   Back,
   Avatar,
   ProfileInputBlock,
   SubmitButton,
-} from '@/components/index';
-import { CheckDataProps, InputValidation } from '@/shared/utils/FormValidation';
-import { passwordMaxLength, passwordMinLength, passwordRegex } from '@/shared/lib';
+} from '../../components';
+import { CheckDataProps, InputValidation } from '../../shared/utils/FormValidation';
+import { passwordMaxLength, passwordMinLength, passwordRegex } from '../../shared/lib';
 
 export class EditPasswordPage extends Block {
   private _form: HTMLFormElement | null;

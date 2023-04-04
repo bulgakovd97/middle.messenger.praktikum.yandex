@@ -1,5 +1,5 @@
 import template from './chats-list.hbs';
-import { Block } from '@/shared/utils/Block';
+import { Block } from '../../../shared/utils/Block';
 // @ts-ignore
 import arrow from '../../../../static/arrow.svg';
 import { Search } from '../search';

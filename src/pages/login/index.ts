@@ -1,6 +1,6 @@
-import { LoginForm } from '@/components/index';
+import { LoginForm } from '../../components';
 import template from './login.hbs';
-import { Block } from '@/shared/utils/Block';
+import { Block } from '../../shared/utils/Block';
 
 export class LoginPage extends Block {
   constructor() {
