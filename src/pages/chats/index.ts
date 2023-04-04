@@ -57,29 +57,31 @@ export class ChatsPage extends Block {
   }
 
   private _chooseChatItem(chatItems: ChatItem[]): void {
-    chatItems.forEach((chatItem) => chatItem.element!.addEventListener('click', (event) => {
-      const chat = event.currentTarget as HTMLLIElement;
+    chatItems.forEach((chatItem) => chatItem.element!.addEventListener('click', this._handleChatClick.bind(this)));
+  }
 
-      const currentChat = mockChats.find((mockChat) => chat.dataset.id === mockChat.chatId.toString());
+  private _handleChatClick(event: Event) {
+    const chat = event.currentTarget as HTMLLIElement;
 
-      if (!currentChat) return;
+    const currentChat = mockChats.find((mockChat) => chat.dataset.id === mockChat.chatId.toString());
 
-      const { messages, user } = currentChat;
+    if (!currentChat) return;
 
-      const lastMessage = messages[messages.length - 1];
+    const { messages, user } = currentChat;
 
-      const feed = this.children.feed as Feed;
+    const lastMessage = messages[messages.length - 1];
 
-      feed.setProps({
-        userName: user.name,
-        userAvatar: user.avatar,
-        date: lastMessage.editedAt,
-        sentAt: lastMessage.sentAt,
-        messageText: lastMessage.text,
-        feedTextClass: 'invisible',
-        visible: 'visible-flex',
-      });
-    }));
+    const feed = this.children.feed as Feed;
+
+    feed.setProps({
+      userName: user.name,
+      userAvatar: user.avatar,
+      date: lastMessage.editedAt,
+      sentAt: lastMessage.sentAt,
+      messageText: lastMessage.text,
+      feedTextClass: 'invisible',
+      visible: 'visible-flex',
+    });
   }
 
   private _handleMessageInputChange(event: Event) {

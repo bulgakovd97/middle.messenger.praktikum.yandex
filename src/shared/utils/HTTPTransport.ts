@@ -6,7 +6,7 @@ export enum METHODS {
   DELETE = 'DELETE',
 }
 
-function queryStringify(data: any): string {
+function queryStringify(data: Record<string, unknown>): string {
   const queryParamsArray = [];
 
   // eslint-disable-next-line no-restricted-syntax
