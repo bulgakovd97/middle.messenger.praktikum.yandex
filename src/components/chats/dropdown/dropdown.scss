@@ -1,0 +1,118 @@
+@use '../../../styles/tools' as *;
+
+.dropdown {
+  background-color: $color-white;
+  visibility: hidden;
+  opacity: 0;
+  transition: all .1s ease;
+
+  &_opened {
+    visibility: visible;
+    opacity: 1;
+  }
+
+  &-action {
+    box-shadow: 0 0 6px rgb(0 0 0 / 14%);
+    border-radius: 12px;
+    position: absolute;
+    top: 50px;
+    right: -10px;
+    width: 220px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    display: flex;
+
+    &__button {
+      width: 100%;
+      flex-direction: row;
+      justify-content: flex-start;
+      align-items: center;
+      gap: 10px;
+      padding: 15px;
+      display: flex;
+
+      &:hover {
+        background-color: $color-xlight-grey;
+      }
+    }
+
+    &__icon {
+      width: 22px;
+      height: 22px;
+      background-repeat: no-repeat;
+      background-position: center;
+
+      &_type {
+        &_add {
+          background-image: url('/static/add-user.svg');
+        }
+
+        &_remove {
+          background-image: url('/static/remove-user.svg');
+        }
+      }
+    }
+
+    &__text {
+      font-size: $font-size-s;
+      line-height: $line-height;
+      font-weight: $medium;
+      color: $color-black;
+    }
+  }
+
+  &-attachment {
+    @include flex-column;
+
+    align-items: flex-start;
+    box-shadow: 0 0 6px rgb(0 0 0 / 14%);
+    border-radius: 12px;
+    position: absolute;
+    top: -180px;
+    left: -10px;
+    width: 170px;
+
+    &__button {
+      @include flex-row;
+
+      width: 100%;
+      align-items: center;
+      justify-content: flex-start;
+      gap: 10px;
+      padding: 15px;
+
+      &:hover {
+        background-color: $color-xlight-grey;
+      }
+    }
+
+    &__icon {
+      width: 22px;
+      height: 22px;
+      background-repeat: no-repeat;
+      background-position: center;
+
+      &_type {
+        &_image {
+          background-image: url('/static/photo-or-video.svg');
+        }
+
+        &_file {
+          background-image: url('/static/file.svg');
+        }
+
+        &_location {
+          background-image: url('/static/location.svg');
+        }
+      }
+    }
+
+    &__text {
+      font-size: $font-size-s;
+      line-height: $line-height;
+      font-weight: $medium;
+      color: $color-black;
+    }
+  }
+}
