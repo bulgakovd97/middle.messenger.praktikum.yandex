@@ -3,15 +3,18 @@ import { Block } from '@/shared/utils/Block';
 import {
   Back,
   Avatar,
-  ProfileInputBlock,
   ButtonGroup,
   SubmitButton,
   AvatarPopup,
+  ProfileInputBlock,
 } from '../../components';
 import { InputValidation } from '@/shared/utils/InputValidation';
+import { store, withStore } from '@/shared/utils/Store';
+import router from '@/shared/utils/Router';
+import { User } from '@/api/types';
+import userController from '@/controllers/UserController';
 
-export class ProfilePage extends Block {
-  private _form: HTMLFormElement | null;
+class ProfilePageBase extends Block {
   private _editButton: HTMLButtonElement | null = null;
   private _inputClass: string;
   private _avatarPopup: HTMLDivElement | null;
@@ -20,18 +23,19 @@ export class ProfilePage extends Block {
     super('div');
 
     this.element!.classList.add('centering');
-    this._form = this.element!.querySelector('.edit-form');
     this._inputClass = '.profile-input-block__input';
     this._avatarPopup = this.element!.querySelector('.avatar-popup');
   }
 
   init() {
-    this.children.back = new Back();
+    const { data } = store.getState().user;
+
+    this.children.back = new Back({ events: { click: () => router.back() } });
 
     this.children.avatarPopup = new AvatarPopup({
       title: 'Загрузите файл',
       events: {
-        change: (event) => this._chooseAvatar(event),
+        change: (event: Event) => this._chooseAvatar(event),
       },
     });
 
@@ -53,13 +57,13 @@ export class ProfilePage extends Block {
       id: 'email',
       label: 'Почта',
       name: 'email',
-      placeholder: 'bulgakovd97@yandex.ru',
       type: 'email',
+      value: data?.email,
       errorMessage: 'Неверная почта',
       disabled: true,
       events: {
-        focusin: (event) => new InputValidation(event.target as HTMLInputElement).validate(),
-        focusout: (event) => new InputValidation(event.target as HTMLInputElement).validate(),
+        focusin: (event: Event) => new InputValidation(event.target as HTMLInputElement).validate(),
+        focusout: (event: Event) => new InputValidation(event.target as HTMLInputElement).validate(),
       },
     });
 
@@ -68,13 +72,13 @@ export class ProfilePage extends Block {
       id: 'login',
       label: 'Логин',
       name: 'login',
-      placeholder: 'bulgakovd',
       type: 'text',
+      value: data?.login,
       errorMessage: 'Неверный логин',
       disabled: true,
       events: {
-        focusin: (event) => new InputValidation(event.target as HTMLInputElement).validate(),
-        focusout: (event) => new InputValidation(event.target as HTMLInputElement).validate(),
+        focusin: (event: Event) => new InputValidation(event.target as HTMLInputElement).validate(),
+        focusout: (event: Event) => new InputValidation(event.target as HTMLInputElement).validate(),
       },
     });
 
@@ -83,13 +87,13 @@ export class ProfilePage extends Block {
       id: 'first_name',
       label: 'Имя',
       name: 'first_name',
-      placeholder: 'Денис',
       type: 'text',
+      value: data?.first_name,
       errorMessage: 'Неверное имя',
       disabled: true,
       events: {
-        focusin: (event) => new InputValidation(event.target as HTMLInputElement).validate(),
-        focusout: (event) => new InputValidation(event.target as HTMLInputElement).validate(),
+        focusin: (event: Event) => new InputValidation(event.target as HTMLInputElement).validate(),
+        focusout: (event: Event) => new InputValidation(event.target as HTMLInputElement).validate(),
       },
     });
 
@@ -98,13 +102,13 @@ export class ProfilePage extends Block {
       id: 'second_name',
       label: 'Фамилия',
       name: 'second_name',
-      placeholder: 'Булгаков',
       type: 'text',
+      value: data?.second_name,
       errorMessage: 'Неверная фамилия',
       disabled: true,
       events: {
-        focusin: (event) => new InputValidation(event.target as HTMLInputElement).validate(),
-        focusout: (event) => new InputValidation(event.target as HTMLInputElement).validate(),
+        focusin: (event: Event) => new InputValidation(event.target as HTMLInputElement).validate(),
+        focusout: (event: Event) => new InputValidation(event.target as HTMLInputElement).validate(),
       },
     });
 
@@ -113,13 +117,13 @@ export class ProfilePage extends Block {
       id: 'display_name',
       label: 'Имя в чате',
       name: 'display_name',
-      placeholder: 'Денис',
       type: 'text',
+      value: data?.display_name,
       errorMessage: 'Неверное имя',
       disabled: true,
       events: {
-        focusin: (event) => new InputValidation(event.target as HTMLInputElement).validate(),
-        focusout: (event) => new InputValidation(event.target as HTMLInputElement).validate(),
+        focusin: (event: Event) => new InputValidation(event.target as HTMLInputElement).validate(),
+        focusout: (event: Event) => new InputValidation(event.target as HTMLInputElement).validate(),
       },
     });
 
@@ -128,26 +132,57 @@ export class ProfilePage extends Block {
       id: 'phone',
       label: 'Телефон',
       name: 'phone',
-      placeholder: '+79999999999',
       type: 'tel',
+      value: data?.phone,
       errorMessage: 'Неверный номер телефона',
       disabled: true,
       events: {
-        focusin: (event) => new InputValidation(event.target as HTMLInputElement).validate(),
-        focusout: (event) => new InputValidation(event.target as HTMLInputElement).validate(),
+        focusin: (event: Event) => new InputValidation(event.target as HTMLInputElement).validate(),
+        focusout: (event: Event) => new InputValidation(event.target as HTMLInputElement).validate(),
       },
     });
 
     this.children.submitButton = new SubmitButton({
       className: 'profile__submit-button',
       title: 'Сохранить',
+      events: {
+        // eslint-disable-next-line @typescript-eslint/no-misused-promises
+        click: (event) => this._handleSubmit(event),
+      },
     });
 
     this.children.submitButton.element!.style.display = 'none';
 
-    this._editButton = (this.children.buttonGroup as ButtonGroup).editButton as HTMLButtonElement;
+    this._editButton = (this.children.buttonGroup as ButtonGroup).editButton;
 
     this._editButton.addEventListener('click', this._handleEditClick.bind(this));
+  }
+
+  private _chooseAvatar(event: Event) {
+    const input = event.target as HTMLInputElement;
+
+    if (!input) return;
+
+    const file = input.files?.[0];
+
+    if (file && (file.type === 'image/png' || file.type === 'image/jpeg')) {
+      (this.children.avatarPopup as AvatarPopup).setProps({
+        title: 'Файл загружен',
+        fileName: file.name,
+        fileNameError: 'visible-block',
+        file,
+      });
+
+      this.element!.querySelector('h1')?.classList.remove('avatar-popup__title_error');
+      this.element!.querySelector('.avatar-popup-form__error')?.classList.remove('visible-block');
+    } else {
+      (this.children.avatarPopup as AvatarPopup).setProps({
+        title: 'Ошибка, попробуйте ещё раз',
+        errorClass: 'avatar-popup__title_error',
+        fileNameError: '',
+        file: undefined,
+      });
+    }
   }
 
   render() {
@@ -155,8 +190,6 @@ export class ProfilePage extends Block {
   }
 
   private _setEventListeners() {
-    this._form!.addEventListener('submit', this._handleSubmit.bind(this));
-
     this._avatarPopup?.addEventListener('click', (event) => {
       if ((event.target as HTMLDivElement).classList.contains('popup_opened')) {
         this._closePopup();
@@ -170,36 +203,8 @@ export class ProfilePage extends Block {
     });
   }
 
-  protected componentDidMount(): void {
+  protected componentDidMount() {
     this._setEventListeners();
-  }
-
-  private _chooseAvatar(event: Event) {
-    const input = event.target as HTMLInputElement;
-    const avatarPopup = this.children.avatarPopup as AvatarPopup;
-
-    if (!input) return;
-
-    const file = input.files?.[0];
-
-    if (file && (file.type === 'image/png' || file.type === 'image/jpeg')) {
-      avatarPopup.setProps({
-        title: 'Файл загружен',
-        fileName: file.name,
-        fileNameError: 'visible-block',
-        photoSrc: window.URL.createObjectURL(file),
-      });
-
-      avatarPopup.element!.querySelector('h1')?.classList.remove('avatar-popup__title_error');
-      avatarPopup.element!.querySelector('.avatar-popup-form__error')?.classList.remove('visible-block');
-    } else {
-      avatarPopup.setProps({
-        title: 'Ошибка, попробуйте ещё раз',
-        errorClass: 'avatar-popup__title_error',
-        fileNameError: '',
-        photoSrc: '',
-      });
-    }
   }
 
   private _handleEditClick() {
@@ -208,37 +213,64 @@ export class ProfilePage extends Block {
     this.element!.querySelectorAll(this._inputClass).forEach((input) => (input as HTMLInputElement).removeAttribute('disabled'));
   }
 
-  private _handleSubmit(event: Event) {
+  private async _handleSubmit(event: Event) {
     event.preventDefault();
 
-    const form = event.target as HTMLFormElement;
+    const inputValues = Object.values(this.children)
+      .filter((child) => {
+        if (!(child instanceof ProfileInputBlock)) {
+          return;
+        }
+        const input = child.element!.querySelector('input')!;
+        const isValid = new InputValidation(input).validate();
+        // eslint-disable-next-line consistent-return
+        return isValid;
+      })
+      .map((child) => {
+        const input = (child as ProfileInputBlock).element!.querySelector('input')!;
+        const { name, value } = input;
+        return [name, value];
+      });
 
-    const validInputs: HTMLInputElement[] = [];
+    if (inputValues.length !== 6) return;
 
-    form.querySelectorAll('input').forEach((input) => {
-      const isValid = new InputValidation(input).validate();
+    const userData: User = Object.fromEntries(inputValues);
 
-      if (isValid) {
-        validInputs.push(input);
-      }
+    (this.children.submitButton as SubmitButton).element!.style.display = 'none';
+    (this.element!.querySelector('.profile__button-group') as HTMLDivElement).style.display = 'flex';
+    (this.element!.querySelectorAll('input')).forEach((input) => {
+      input.setAttribute('disabled', '');
+      input.value = '';
     });
 
-    if (validInputs.length === 6) {
-      validInputs.forEach((input) => {
-        const { name, value } = input;
-        console.log(`${name}:`, value);
-      });
+    const inputValuesObj: Record<string, string> = Object.fromEntries(inputValues);
 
-      (form.querySelector('.submit-button') as HTMLButtonElement).style.display = 'none';
-      (form.querySelector('.profile__button-group') as HTMLDivElement).style.display = 'flex';
-      validInputs.forEach((input) => {
-        input.setAttribute('disabled', '');
-        input.value = '';
-      });
-    }
+    const profileInputBlocks = Object.values(this.children).filter((child) => child instanceof ProfileInputBlock);
+
+    profileInputBlocks.forEach((item) => {
+      const input = (item as ProfileInputBlock).element!.querySelector('input')!;
+      const { name } = input;
+      (item as ProfileInputBlock).setProps({ value: inputValuesObj[name] });
+    });
+
+    await userController.updateProfile(userData);
   }
 
   private _closePopup() {
     this._avatarPopup?.classList.remove('popup_opened');
+
+    setTimeout(() => {
+      (this.children.avatarPopup as AvatarPopup).setProps({
+        errorClass: '',
+        fileName: '',
+        fileNameError: '',
+        file: undefined,
+        title: 'Загрузите файл',
+      });
+    }, 500);
   }
 }
+
+const withUser = withStore((state) => ({ ...state.user }));
+
+export const ProfilePage = withUser(ProfilePageBase);

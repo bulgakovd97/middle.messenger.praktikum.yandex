@@ -5,27 +5,29 @@ import {
   Avatar,
   ProfileInputBlock,
   SubmitButton,
-} from '../../components';
+} from '@/components/index';
 import { InputValidation } from '@/shared/utils/InputValidation';
+import Router from '@/shared/utils/Router';
+import userController from '@/controllers/UserController';
 
 export class EditPasswordPage extends Block {
-  private _form: HTMLFormElement | null;
-
   constructor() {
     super('div');
 
     this.element!.classList.add('centering');
-
-    this._form = this.element!.querySelector('.edit-form');
   }
 
   init() {
-    this.children.back = new Back();
+    this.children.back = new Back({ events: { click: () => Router.back() } });
     this.children.avatar = new Avatar({ className: 'edit-password__avatar' });
 
     this.children.submitButton = new SubmitButton({
       className: 'edit-password__button',
       title: 'Сохранить',
+      events: {
+        // eslint-disable-next-line @typescript-eslint/no-misused-promises
+        click: (event) => this._handleSubmit(event),
+      },
     });
 
     this.children.oldPasswordInputBlock = new ProfileInputBlock({
@@ -33,7 +35,6 @@ export class EditPasswordPage extends Block {
       id: 'oldPassword',
       label: 'Старый пароль',
       name: 'oldPassword',
-      placeholder: '•••••••',
       type: 'password',
       errorMessage: 'Неверный пароль',
       disabled: false,
@@ -48,7 +49,6 @@ export class EditPasswordPage extends Block {
       id: 'newPassword',
       label: 'Новый пароль',
       name: 'newPassword',
-      placeholder: '•••••••••••',
       type: 'password',
       errorMessage: 'Неверный пароль',
       disabled: false,
@@ -63,7 +63,6 @@ export class EditPasswordPage extends Block {
       id: 'newPassword-repeat',
       label: 'Повторите новый пароль',
       name: 'newPassword-repeat',
-      placeholder: '•••••••••••',
       type: 'password',
       errorMessage: 'Пароли не совпадают',
       disabled: false,
@@ -78,50 +77,44 @@ export class EditPasswordPage extends Block {
     return this.compile(template, this.props);
   }
 
-  protected componentDidMount(): void {
-    this._setEventListeners();
-  }
-
-  private _handleSubmit(event: Event) {
+  private async _handleSubmit(event: Event) {
     event.preventDefault();
 
-    const form = event.target as HTMLFormElement;
-
-    const validInputs: HTMLInputElement[] = [];
-
-    form.querySelectorAll('input').forEach((input, index, array) => {
-      const isValid = new InputValidation(input).validate();
-
-      const passwordValue = array[array.length - 2].value;
-
-      if (isValid) {
-        const label = input.previousElementSibling as HTMLLabelElement;
-        const error = input.parentElement!.nextElementSibling as HTMLParagraphElement;
-
-        if ((index === array.length - 1) && input.value !== passwordValue) {
-          error.style.display = 'block';
-          input.style.borderBottomColor = '#ff2f2f';
-          label.style.borderBottomColor = '#ff2f2f';
+    const inputValues = Object.values(this.children)
+      .filter((child) => {
+        if (!(child instanceof ProfileInputBlock)) {
           return;
         }
-
-        error.style.display = 'none';
-        input.style.borderBottomColor = '#eaeaea';
-        label.style.borderBottomColor = '#eaeaea';
-
-        validInputs.push(input);
-      }
-    });
-
-    if (validInputs.length === 3) {
-      validInputs.forEach((input) => {
+        const input = child.element!.querySelector('input')!;
+        const isValid = new InputValidation(input).validate();
+        // eslint-disable-next-line consistent-return
+        return isValid;
+      })
+      .map((child) => {
+        const input = (child as ProfileInputBlock).element!.querySelector('input')!;
         const { name, value } = input;
-        console.log(`${name}:`, value);
+        return [name, value];
       });
-    }
-  }
 
-  private _setEventListeners() {
-    this._form?.addEventListener('submit', this._handleSubmit.bind(this));
+    if (inputValues.length !== 3) return;
+
+    const passwordData: Record<string, string> = Object.fromEntries(inputValues);
+
+    const label = (this.children.repeatNewPasswordInputBlock as ProfileInputBlock).element!.querySelector('label') as HTMLLabelElement;
+    const repeatNewPasswordInput = (this.children.repeatNewPasswordInputBlock as ProfileInputBlock).element!.querySelector('input') as HTMLInputElement;
+    const error = (this.children.repeatNewPasswordInputBlock as ProfileInputBlock).element!.children[1] as HTMLParagraphElement;
+
+    if (passwordData.newPassword !== passwordData['newPassword-repeat']) {
+      error.style.display = 'block';
+      label.style.borderBottomColor = '#ff2f2f';
+      repeatNewPasswordInput.style.borderBottomColor = '#ff2f2f';
+      return;
+    } else {
+      error.style.display = 'none';
+      repeatNewPasswordInput.style.borderBottomColor = '#eaeaea';
+      label.style.borderBottomColor = '#eaeaea';
+    }
+
+    await userController.changePassword({ oldPassword: passwordData.oldPassword, newPassword: passwordData.newPassword });
   }
 }

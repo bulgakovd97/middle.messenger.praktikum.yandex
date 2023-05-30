@@ -20,6 +20,8 @@
   }
 
   &__input {
+    @include input-placeholder;
+
     width: 50%;
     border-bottom: 1px solid $color-light-grey;
     text-align: end;

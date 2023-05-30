@@ -9,7 +9,7 @@ interface SubmitButtonProps {
   };
 }
 
-export class SubmitButton extends Block<SubmitButtonProps, HTMLButtonElement> {
+export class SubmitButton extends Block<SubmitButtonProps> {
   constructor(props: SubmitButtonProps) {
     super('button', props);
 
@@ -21,7 +21,7 @@ export class SubmitButton extends Block<SubmitButtonProps, HTMLButtonElement> {
       this.element!.classList.add(props.className);
     }
 
-    this.element!.type = 'submit';
+    (this.element as HTMLButtonElement)!.type = 'submit';
   }
 
   render() {

@@ -1,8 +1,9 @@
+import { withStore } from '@/shared/utils/Store';
 import { LoginForm } from '../../components';
 import template from './login.hbs';
 import { Block } from '@/shared/utils/Block';
 
-export class LoginPage extends Block {
+export class LoginPageBase extends Block {
   constructor() {
     super('div');
 
@@ -20,3 +21,7 @@ export class LoginPage extends Block {
     return this.compile(template, this.props);
   }
 }
+
+const withUser = withStore((state) => ({ ...state.user }));
+
+export const LoginPage = withUser(LoginPageBase);

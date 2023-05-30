@@ -13,25 +13,30 @@
 
 .chats-list {
   width: $width-100;
+  max-height: 100vh;
+  overflow: auto;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
 
   &__link {
     @include flex-row;
 
+    width: $width-100;
     align-items: center;
+    justify-content: space-between;
+  }
+
+  &__new-chat {
+    @include flex-row;
+
     gap: 8px;
-    align-self: flex-end;
-    cursor: pointer;
   }
 
-  &__profile-button {
-    color: $color-grey;
-    font-size: $font-size-s;
-    line-height: $line-height;
-    font-weight: $medium;
-  }
+  &__profile {
+    @include flex-row;
 
-  &__arrow {
-    width: 6px;
-    height: 10px;
+    gap: 8px;
   }
 }

@@ -1,12 +1,18 @@
 import template from './back.hbs';
 import { Block } from '@/shared/utils/Block';
 
-export class Back extends Block {
-  constructor() {
-    super('aside');
+interface BackProps {
+  events: {
+    click: (event: Event) => void,
+  };
+}
+
+export class Back extends Block<BackProps> {
+  constructor(props: BackProps) {
+    super('aside', props);
   }
 
   render() {
-    return this.compile(template, {});
+    return this.compile(template, this.props);
   }
 }

@@ -1,0 +1,8 @@
+@use '../../../styles/tools' as *;
+
+.chat-button {
+  color: $color-azure;
+  font-size: $font-size-s;
+  line-height: $line-height;
+  font-weight: $medium;
+}

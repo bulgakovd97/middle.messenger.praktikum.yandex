@@ -3,6 +3,11 @@ import { SubmitButton } from '../submit-button';
 import template from './sign-up-form.hbs';
 import { Block } from '@/shared/utils/Block';
 import { InputValidation } from '@/shared/utils/InputValidation';
+import Router from '@/shared/utils/Router';
+import { Routes } from '@/shared/lib';
+import { SignupData } from '@/api/types';
+import authController from '@/controllers/AuthController';
+import { store } from '@/shared/utils/Store';
 
 interface SignUpFormProps {
   title: string;
@@ -11,6 +16,7 @@ interface SignUpFormProps {
 
 export class SignUpForm extends Block<SignUpFormProps> {
   private _form: HTMLFormElement | null;
+  private _linkButton: HTMLButtonElement | null;
 
   constructor(props: SignUpFormProps) {
     super('main', props);
@@ -18,6 +24,7 @@ export class SignUpForm extends Block<SignUpFormProps> {
     this.element!.classList.add('sign-up-container');
 
     this._form = this.element!.querySelector('.sign-form');
+    this._linkButton = this.element!.querySelector('.sign-form__link-button');
   }
 
   init() {
@@ -136,44 +143,56 @@ export class SignUpForm extends Block<SignUpFormProps> {
     this._setEventListeners();
   }
 
-  private _handleSubmit(event: Event) {
+  private async _handleSubmit(event: Event) {
     event.preventDefault();
 
-    const form = event.target as HTMLFormElement;
-
-    const validInputs: HTMLInputElement[] = [];
-
-    form.querySelectorAll('input').forEach((input, index, array) => {
-      const isValid = new InputValidation(input).validate();
-
-      const passwordValue = array[array.length - 2].value;
-
-      if (isValid) {
-        const error = input.parentElement!.nextElementSibling as HTMLParagraphElement;
-
-        if ((index === array.length - 1) && input.value !== passwordValue) {
-          error.style.display = 'block';
-          input.style.borderBottomColor = '#ff2f2f';
+    const inputValues = Object.values(this.children)
+      .filter((child) => {
+        if (!(child instanceof InputBlock)) {
           return;
         }
-
-        error.style.display = 'none';
-        input.style.borderBottomColor = '#0ec2c2';
-
-        validInputs.push(input);
-      }
-    });
-
-    if (validInputs.length === 7) {
-      validInputs.forEach((input) => {
+        const input = child.element!.querySelector('input')!;
+        const isValid = new InputValidation(input).validate();
+        // eslint-disable-next-line consistent-return
+        return isValid;
+      })
+      .map((child) => {
+        const input = (child as InputBlock).element!.querySelector('input')!;
         const { name, value } = input;
-        console.log(`${name}:`, value);
+        return [name, value];
       });
+
+    if (inputValues.length !== 7) return;
+
+    const signupData: SignupData & { 'password-repeat': string } = Object.fromEntries(inputValues);
+
+    const repeatPasswordInput = (this.children.repeatPasswordInput as InputBlock).element!.querySelector('input') as HTMLInputElement;
+    const error = this.element!.querySelector('.sign-up__error') as HTMLParagraphElement;
+
+    if (signupData.password !== signupData['password-repeat']) {
+      error.style.display = 'block';
+      repeatPasswordInput.style.borderBottomColor = '#ff2f2f';
+      return;
+    } else {
+      error.style.display = 'none';
+      repeatPasswordInput.style.borderBottomColor = '#0ec2c2';
+    }
+
+    await authController.signup(signupData);
+
+    const { hasError } = store.getState().user;
+
+    if (hasError) {
+      this.element!.querySelector('.sign-up__error')?.classList.add('visible-block');
     }
   }
 
   private _setEventListeners() {
+    // eslint-disable-next-line @typescript-eslint/no-misused-promises
     this._form!.addEventListener('submit', this._handleSubmit.bind(this));
+    this._linkButton!.addEventListener('click', () => {
+      Router.go(Routes.LOGIN);
+    });
   }
 
   render() {

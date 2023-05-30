@@ -1,68 +1,55 @@
 import {
-  ChatsPage,
   EditPasswordPage,
   ErrorPage,
   LoginPage,
   SignUpPage,
-  MainPage,
   NotFoundPage,
   ProfilePage,
+  ChatsPage,
 } from '@/pages/index';
-import { Routes } from './shared/lib';
-import { Block } from './shared/utils/Block';
+import { Routes } from '@/shared/lib';
+import router from '@/shared/utils/Router';
+import authController from '@/controllers/AuthController';
 
-const {
-  LOGIN,
-  SIGN_UP,
-  PROFILE,
-  EDIT_PASSWORD,
-  CHATS,
-  ERROR_PAGE,
-  NOT_FOUND,
-} = Routes;
+// eslint-disable-next-line @typescript-eslint/no-misused-promises
+window.addEventListener('DOMContentLoaded', async () => {
+  router
+    .use(Routes.LOGIN, LoginPage)
+    .use(Routes.SIGN_UP, SignUpPage)
+    .use(Routes.PROFILE, ProfilePage)
+    .use(Routes.EDIT_PASSWORD, EditPasswordPage)
+    .use(Routes.CHATS, ChatsPage)
+    .use(Routes.ERROR_PAGE, ErrorPage)
+    .use(Routes.NOT_FOUND, NotFoundPage);
 
-let page: Block;
+  let isProtectedRoute = true;
 
-window.addEventListener('DOMContentLoaded', () => {
   const { pathname } = window.location;
 
-  const root = document.querySelector('#root');
-
   switch (pathname) {
-    case ERROR_PAGE:
-      page = new ErrorPage();
-      break;
-
-    case NOT_FOUND:
-      page = new NotFoundPage();
-      break;
-
-    case PROFILE:
-      page = new ProfilePage();
-      break;
-
-    case EDIT_PASSWORD:
-      page = new EditPasswordPage();
-      break;
-
-    case CHATS:
-      page = new ChatsPage();
-      break;
-
-    case LOGIN:
-      page = new LoginPage();
-      break;
-
-    case SIGN_UP:
-      page = new SignUpPage();
+    case Routes.LOGIN:
+    case Routes.SIGN_UP:
+      isProtectedRoute = false;
       break;
 
     default:
-      page = new MainPage();
+      isProtectedRoute = true;
       break;
   }
 
-  root?.append(page.getContent()!);
+  try {
+    await authController.fetchUser();
 
-  page.dispatchComponentDidMount();
+    router.start();
+
+    if (!isProtectedRoute) {
+      router.go(Routes.CHATS);
+    }
+  } catch (error) {
+    router.start();
+
+    if (isProtectedRoute) {
+      router.go(Routes.LOGIN);
+    }
+  }
 });

@@ -16,7 +16,7 @@ interface InputBlockProps {
   };
 }
 
-export class InputBlock extends Block<InputBlockProps, HTMLInputElement> {
+export class InputBlock extends Block<InputBlockProps> {
   constructor(props: InputBlockProps) {
     super('div', props);
 

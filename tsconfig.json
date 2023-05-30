@@ -4,8 +4,14 @@
     "module": "commonjs",
     "baseUrl": ".",
     "paths": {
+      "@/api/*": [
+        "src/api/*"
+      ],
       "@/components/*": [
         "src/components/*"
+      ],
+      "@/controllers/*": [
+        "src/controllers/*"
       ],
       "@/pages/*": [
         "src/pages/*"
