@@ -144,7 +144,7 @@ class ProfilePageBase extends Block {
 
     this.children.submitButton = new SubmitButton({
       className: 'profile__submit-button',
-      title: 'Сохранить',
+      buttonText: 'Сохранить',
       events: {
         // eslint-disable-next-line @typescript-eslint/no-misused-promises
         click: (event) => this._handleSubmit(event),

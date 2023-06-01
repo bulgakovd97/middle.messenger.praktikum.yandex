@@ -23,7 +23,7 @@ export class EditPasswordPage extends Block {
 
     this.children.submitButton = new SubmitButton({
       className: 'edit-password__button',
-      title: 'Сохранить',
+      buttonText: 'Сохранить',
       events: {
         // eslint-disable-next-line @typescript-eslint/no-misused-promises
         click: (event) => this._handleSubmit(event),

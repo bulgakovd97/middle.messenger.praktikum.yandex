@@ -39,6 +39,18 @@ class ChatController {
       .catch(console.log);
   }
 
+  async getChat(title: string) {
+    return this.api.getChats({ title })
+      .then((chats) => {
+        if (chats.length === 1) {
+          store.set('chat.data', chats[0]);
+        }
+
+        return chats[0];
+      })
+      .catch(console.log);
+  }
+
   async uploadChatAvatar(data: FormData) {
     try {
       const chat = await this.api.updloadChatAvatar(data);
@@ -88,6 +100,16 @@ class ChatController {
         users: userId,
         chatId,
       });
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  async deleteChat(chatId: number) {
+    try {
+      await this.api.deleteChat(chatId);
+
+      await this.getChats();
     } catch (error) {
       console.log(error);
     }

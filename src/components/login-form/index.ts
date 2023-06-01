@@ -31,7 +31,7 @@ export class LoginForm extends Block<LoginFormProps> {
   init() {
     this.children.submitButton = new SubmitButton({
       className: ['sign-form__button', 'sign-form__button_type_login'],
-      title: 'Войти',
+      buttonText: 'Войти',
     });
 
     this.children.loginInput = new InputBlock({

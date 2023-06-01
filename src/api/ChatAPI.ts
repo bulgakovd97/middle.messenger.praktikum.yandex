@@ -39,6 +39,10 @@ export class ChatAPI extends BaseAPI {
     return this.http.delete('/users', { data: deleteUsersData });
   }
 
+  public deleteChat(chatId: number) {
+    return this.http.delete('', { data: { chatId } });
+  }
+
   public getNewMessagesAmount(chatId: number): Promise<{ unread_count: number }> {
     return this.http.get(`/new/${chatId}`);
   }

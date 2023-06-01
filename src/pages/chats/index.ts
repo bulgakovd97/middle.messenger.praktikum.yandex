@@ -13,12 +13,15 @@ import chatController from '@/controllers/ChatController';
 import { store, withStore } from '@/shared/utils/Store';
 import { parseToDate, parseToTime } from '@/shared/lib';
 import { Socket } from '@/api/Socket';
+import { DeleteChatPopup } from '@/components/delete-chat-popup';
 
 export class Chats extends Block {
   private _userDropDown: HTMLDivElement | null;
   private _userPopup: UserPopup | null;
+  private _deleteChatPopup: DeleteChatPopup | null;
   private _loginInput: HTMLInputElement | null;
-  private _userSubmitButton: HTMLFormElement | null;
+  private _userSubmitButton: HTMLButtonElement | null;
+  private _deleteChatSubmitButton: HTMLButtonElement | null;
 
   static CLASSNAMES = {
     FEED_ATTACHMENT_BUTTON: 'feed__attachment-button',
@@ -34,8 +37,10 @@ export class Chats extends Block {
 
     this._userDropDown = this.element!.querySelector('.dropdown-action');
     this._userPopup = this.children.userPopup as UserPopup;
+    this._deleteChatPopup = this.children.deleteChatPopup as DeleteChatPopup;
     this._loginInput = this._userPopup.element!.querySelector('input');
     this._userSubmitButton = this.element!.querySelector('.user-popup-form__button');
+    this._deleteChatSubmitButton = this.element!.querySelector('.delete-chat-popup-form__button');
   }
 
   init() {
@@ -47,6 +52,8 @@ export class Chats extends Block {
     });
 
     this.children.userPopup = new UserPopup({ title: 'Добавить' });
+
+    this.children.deleteChatPopup = new DeleteChatPopup({ title: 'Удалить чат?' });
 
     this.children.chatList = new ChatList({
       chats: [],
@@ -60,14 +67,14 @@ export class Chats extends Block {
   async componentDidMount() {
     this._setEventListeners();
 
+    store.set('messages.data', []);
+
     const chats = await chatController.getChats();
     (this.children.chatList as ChatList).setProps({ chats: chats ?? [] });
   }
 
   private async _chooseChatItem(event: Event) {
     event.stopPropagation();
-
-    store.set('messages.data', []);
 
     const chat = event.currentTarget as HTMLLIElement;
 
@@ -77,9 +84,9 @@ export class Chats extends Block {
 
     const currentChat = chats.data.find((chatItem) => chat.dataset.id === chatItem.id.toString());
 
-    store.set('chat.data', currentChat);
-
     if (!currentChat) return;
+
+    await chatController.getChat(currentChat.title);
 
     const {
       avatar,
@@ -174,17 +181,21 @@ export class Chats extends Block {
     }
   }
 
-  private _openUserPopup(event: Event) {
-    this._userPopup!.element?.classList.add('popup_opened');
-
+  private _openUserOrDeleteChatPopup(event: Event) {
     const target = (event.target as HTMLDivElement);
 
-    if (target.classList.contains('dropdown__button_type_add') || target.textContent?.includes('Добавить')) {
-      this._userPopup!.setProps({ title: 'Добавить', buttonText: 'Добавить' });
-    }
+    if (target.classList.contains('dropdown__button_type_delete-chat') || target.textContent?.includes('чат')) {
+      this._deleteChatPopup!.element?.classList.add('popup_opened');
 
-    if (target.classList.contains('dropdown__button_type_remove') || target.textContent?.includes('Удалить')) {
-      this._userPopup!.setProps({ title: 'Удалить', buttonText: 'Удалить' });
+      this._deleteChatPopup!.setProps({ title: 'Удалить чат?', buttonText: 'Удалить' });
+    } else if (target.classList.contains('dropdown__button_type_add') || target.textContent?.includes('Добавить')) {
+      this._userPopup!.element?.classList.add('popup_opened');
+
+      this._userPopup!.setProps({ title: 'Добавить пользователя', buttonText: 'Добавить' });
+    } else {
+      this._userPopup!.element?.classList.add('popup_opened');
+
+      this._userPopup!.setProps({ title: 'Удалить пользователя', buttonText: 'Удалить' });
     }
   }
 
@@ -194,6 +205,11 @@ export class Chats extends Block {
     this._loginInput!.value = '';
     this._loginInput!.style.borderBottomColor = '#0ec2c2';
     (this._userPopup!.element!.querySelector('.input-block__error') as HTMLParagraphElement)!.style.display = 'none';
+  }
+
+  private _closeDeleteChatPopup() {
+    this._deleteChatPopup!.element?.classList.remove('popup_opened');
+    this._userDropDown!.classList.remove('dropdown_opened');
   }
 
   private async _handleUserSubmit(event: Event) {
@@ -229,15 +245,51 @@ export class Chats extends Block {
     await chatController.deleteUsersFromChat(login, chatId);
   }
 
+  private async _handleDeleteChatSubmit(event: Event) {
+    event.preventDefault();
+
+    const { data } = store.getState().chat;
+
+    const chatId = data?.id;
+
+    if (chatId) {
+      await chatController.deleteChat(chatId);
+    }
+
+    (this.children.feed as FeedComponent).setProps({
+      chatAvatar: undefined,
+      chatId: undefined,
+      chatName: undefined,
+      date: undefined,
+      feedTextClass: undefined,
+      messages: undefined,
+      userId: undefined,
+      visible: 'invisible',
+    });
+
+    this._closeDeleteChatPopup();
+  }
+
   private _setEventListeners() {
     // eslint-disable-next-line @typescript-eslint/no-misused-promises
     this._userSubmitButton!.addEventListener('click', this._handleUserSubmit.bind(this));
 
-    this._userDropDown!.addEventListener('click', this._openUserPopup.bind(this));
+    // eslint-disable-next-line @typescript-eslint/no-misused-promises
+    this._deleteChatSubmitButton!.addEventListener('click', this._handleDeleteChatSubmit.bind(this));
+
+    this._userDropDown!.addEventListener('click', (event) => {
+      this._openUserOrDeleteChatPopup(event);
+    });
 
     this._userPopup!.element?.addEventListener('click', (event) => {
       if ((event.target as HTMLDivElement).classList.contains('popup_opened')) {
         this._closeUserPopup();
+      }
+    });
+
+    this._deleteChatPopup!.element?.addEventListener('click', (event) => {
+      if ((event.target as HTMLDivElement).classList.contains('popup_opened')) {
+        this._closeDeleteChatPopup();
       }
     });
   }

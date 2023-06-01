@@ -27,7 +27,7 @@ export class ChatPopup extends Block<ChatPopupProps> {
   init() {
     this.children.submitButton = new SubmitButton({
       className: ['.submit-button', 'chat-popup-form__button'],
-      title: 'Создать',
+      buttonText: 'Создать',
       events: {
         // eslint-disable-next-line @typescript-eslint/no-misused-promises
         click: (event) => this._createChat(event),

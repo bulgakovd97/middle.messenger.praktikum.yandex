@@ -28,7 +28,7 @@ export class AvatarPopup extends Block<AvatarPopupProps> {
   init() {
     this.children.submitButton = new SubmitButton({
       className: ['.submit-button', 'avatar-popup-form__button'],
-      title: 'Поменять',
+      buttonText: 'Поменять',
       events: {
         // eslint-disable-next-line @typescript-eslint/no-misused-promises
         click: (event) => this._changeAvatar(event),

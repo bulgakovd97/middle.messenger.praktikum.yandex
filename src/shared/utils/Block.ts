@@ -1,6 +1,6 @@
 import { nanoid } from 'nanoid';
 import { EventBus } from './EventBus';
-import { isEmptyObject, isEqual } from '../lib';
+import { isEmptyObject } from '../lib';
 
 export class Block<P extends Record<string, any> = any> {
   static EVENTS = {

@@ -30,7 +30,7 @@ export class SignUpForm extends Block<SignUpFormProps> {
   init() {
     this.children.submitButton = new SubmitButton({
       className: ['sign-form__button', 'sign-form__button_type_sign-up'],
-      title: 'Зарегистрироваться',
+      buttonText: 'Зарегистрироваться',
     });
 
     this.children.emailInput = new InputBlock({

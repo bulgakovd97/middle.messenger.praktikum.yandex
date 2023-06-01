@@ -23,9 +23,15 @@ export class Socket {
     });
 
     this._socket.addEventListener('message', (event) => {
-      const messages = JSON.parse(event.data);
+      let messages: unknown;
 
-      store.set('messages.data', messages);
+      try {
+        messages = JSON.parse(event.data);
+
+        store.set('messages.data', messages);
+      } catch (error) {
+        console.log(error);
+      }
     });
 
     this._socket.addEventListener('error', () => {
