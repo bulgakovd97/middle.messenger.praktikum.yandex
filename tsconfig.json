@@ -1,0 +1,54 @@
+{
+  "compilerOptions": {
+    "target": "ES2017",
+    "module": "commonjs",
+    "baseUrl": ".",
+    "paths": {
+      "@/api/*": [
+        "src/api/*"
+      ],
+      "@/components/*": [
+        "src/components/*"
+      ],
+      "@/controllers/*": [
+        "src/controllers/*"
+      ],
+      "@/pages/*": [
+        "src/pages/*"
+      ],
+      "@/styles/*": [
+        "src/styles/*"
+      ],
+      "@/shared/*": [
+        "src/shared/*"
+      ]
+    },
+    "resolveJsonModule": true,
+    "declaration": false,
+    "sourceMap": true,
+    "outDir": "dist",
+    "noEmit": true,
+    "isolatedModules": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "strict": true,
+    "noImplicitAny": true,
+    "strictNullChecks": true,
+    "alwaysStrict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "skipLibCheck": true,
+    "lib": [
+      "ESNext",
+      "DOM",
+      "DOM.Iterable"
+    ]
+  },
+  "include": [
+    "**/*.ts",
+    "hbs.config.js"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
+}

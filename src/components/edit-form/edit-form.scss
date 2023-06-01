@@ -2,16 +2,19 @@
 
 .edit-form {
   @include flex-column;
+
   width: $width-100;
   font-size: $font-size-s;
 
   &__fieldset {
     @include flex-column;
+
     gap: 10px;
   }
 
   &__button-group {
     @include flex-column;
+
     gap: 10px;
     width: $width-100;
   }
@@ -22,6 +25,11 @@
     text-align: start;
 
     &_type_edit {
+      color: $color-azure;
+      border-bottom: 1px solid $color-light-grey;
+    }
+
+    &_type_password {
       color: $color-azure;
       border-bottom: 1px solid $color-light-grey;
     }

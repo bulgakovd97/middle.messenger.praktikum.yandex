@@ -1,0 +1,6 @@
+node_modules
+**/*.min.js
+src/**/*.test*
+src/svg/**
+src/types/**
+src/components/svg/**

@@ -1,0 +1,13 @@
+@use '../../../styles/tools' as *;
+
+.profile-button {
+  color: $color-grey;
+  font-size: $font-size-s;
+  line-height: $line-height;
+  font-weight: $medium;
+}
+
+.profile-arrow {
+  width: 6px;
+  height: 10px;
+}

@@ -1,0 +1,21 @@
+<div class="feed__header header {{ visible }}">
+  <div class="feed__photo-name">
+    {{{chatAvatar}}}
+    <h2 class="feed__name">{{ chatName }}</h2>
+  </div>
+  <button class="feed__action-button" type="button" />
+</div>
+<div class="feed__main">
+  <p class="feed__date {{ visible }}">{{ date }}</p>
+  <p class="feed__text {{ feedTextClass }}">Выберите чат, чтобы отправить сообщение</p>
+  {{{chatMessage}}}
+</div>
+<div class="feed__footer {{ visible }}">
+  <button class="feed__attachment-button" type="button">
+    {{{attachmentDropDown}}}
+  </button>
+  <input class="feed__message-input" name="message" type="text" id="message" placeholder="Сообщение" />
+  <button class="feed__send-button" type="button"></button>
+</div>
+{{{userDropDown}}}
+{{{avatarPopup}}}

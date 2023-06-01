@@ -2,10 +2,16 @@
 
 .sign-form {
   @include flex-column;
+
   width: $width-100;
+
+  &_type_sign-up {
+    overflow: auto;
+  }
 
   &__fieldset {
     @include flex-column;
+
     gap: 16px;
   }
 
@@ -14,7 +20,7 @@
       margin-top: 130px;
     }
 
-    &_type_signup {
+    &_type_sign-up {
       margin-top: 30px;
     }
   }
@@ -22,5 +28,6 @@
   &__link-button {
     color: $color-azure;
     font-size: $font-size-s;
+    margin-top: 15px;
   }
 }

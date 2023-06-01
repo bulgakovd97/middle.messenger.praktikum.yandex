@@ -1,6 +1,8 @@
 @use '../../styles/tools' as *;
 
-.chats-main {
+.chats {
   @include flex-row;
+
   height: $height-100;
+  color: $color-grey;
 }

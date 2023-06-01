@@ -1,0 +1,29 @@
+@use '../../styles/tools' as *;
+
+.sign-up-container {
+  @include flex-row;
+
+  height: $height-100;
+}
+
+.sign-up {
+  @include flex-column;
+  @include popup-shape;
+
+  margin: auto;
+  width: 340px;
+  padding: 50px 30px 30px;
+
+  &__title {
+    font-size: $font-size-m;
+    line-height: $line-height;
+    padding-bottom: 40px;
+  }
+
+  &__error {
+    font-size: $font-size-s;
+    color: $color-red;
+    margin-top: 14px;
+    display: none;
+  }
+}

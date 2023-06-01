@@ -2,6 +2,7 @@
 
 .error-main {
   @include flex-row;
+
   height: $height-100;
 }
 
@@ -12,6 +13,7 @@
 
 .error {
   @include flex-column;
+
   color: $color-white;
   font-weight: $medium;
 
@@ -25,7 +27,7 @@
     line-height: $line-height;
   }
 
-  &__link {
+  &__link-button {
     font-size: $font-size-m;
     line-height: $line-height;
     margin-top: 45px;
