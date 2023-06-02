@@ -184,10 +184,14 @@ export class Chats extends Block {
   private _openUserOrDeleteChatPopup(event: Event) {
     const target = (event.target as HTMLDivElement);
 
+    const { data } = store.getState().chat;
+
+    const chatCreatedByUser = data?.created_by;
+
     if (target.classList.contains('dropdown__button_type_delete-chat') || target.textContent?.includes('чат')) {
       this._deleteChatPopup!.element?.classList.add('popup_opened');
 
-      this._deleteChatPopup!.setProps({ title: 'Удалить чат?', buttonText: 'Удалить' });
+      this._deleteChatPopup!.setProps({ title: 'Удалить чат?', buttonText: 'Удалить', createdBy: chatCreatedByUser });
     } else if (target.classList.contains('dropdown__button_type_add') || target.textContent?.includes('Добавить')) {
       this._userPopup!.element?.classList.add('popup_opened');
 
@@ -266,6 +270,10 @@ export class Chats extends Block {
       userId: undefined,
       visible: 'invisible',
     });
+
+    this.element!.querySelector('.feed__messages-block')!.classList.remove('visible-flex');
+
+    store.set('chat.data', null);
 
     this._closeDeleteChatPopup();
   }

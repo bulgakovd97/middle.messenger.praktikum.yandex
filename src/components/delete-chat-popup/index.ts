@@ -1,10 +1,12 @@
 import template from './delete-chat-popup.hbs';
 import { Block } from '@/shared/utils/Block';
 import { SubmitButton } from '../submit-button';
+import { store } from '@/shared/utils/Store';
 
 interface DeleteChatPopupProps {
   title: string;
   buttonText?: string;
+  createdBy?: number;
 }
 
 export class DeleteChatPopup extends Block<DeleteChatPopupProps> {
@@ -22,7 +24,21 @@ export class DeleteChatPopup extends Block<DeleteChatPopupProps> {
     });
   }
 
+  get _submitButton() {
+    return this.element!.querySelector('.delete-chat-popup-form__button') as HTMLButtonElement;
+  }
+
   render() {
+    if (this.props.createdBy) {
+      const { data } = store.getState().user;
+
+      const userId = data?.id;
+
+      if (userId !== this.props.createdBy) {
+        this._submitButton.disabled = true;
+      }
+    }
+
     return this.compile(template, this.props);
   }
 
