@@ -46,6 +46,7 @@ export type Chat = {
   avatar: string | null,
   unread_count: number,
   last_message: Message | null,
+  created_by: number,
 };
 
 export type ChatsQuery = {
