@@ -29,6 +29,11 @@
       border-bottom: 1px solid $color-light-grey;
     }
 
+    &_type_password {
+      color: $color-azure;
+      border-bottom: 1px solid $color-light-grey;
+    }
+
     &_type_logout {
       color: $color-red;
     }

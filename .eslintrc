@@ -44,6 +44,16 @@
     "no-param-reassign": "warn",
     "class-methods-use-this": "off",
     "no-case-declarations": "off",
+    "no-constructor-return": "off",
+    "no-continue": "off",
+    "no-restricted-syntax": "off",
+    "max-classes-per-file": [
+      "error",
+      {
+        "ignoreExpressions": true,
+        "max": 2
+      }
+    ],
     // ts-ignore are sometimes the only way to bypass a TS issue, we trust we will use them for good and not abuse them
     "@typescript-eslint/ban-ts-comment": "warn",
     "@typescript-eslint/no-unsafe-assignment": "off",
@@ -66,6 +76,7 @@
     // Too restrictive rule
     "@typescript-eslint/restrict-template-expressions": "warn",
     "@typescript-eslint/lines-between-class-members": "off",
+    "@typescript-eslint/naming-convention": "off",
     "import/no-extraneous-dependencies": [
       "error",
       {

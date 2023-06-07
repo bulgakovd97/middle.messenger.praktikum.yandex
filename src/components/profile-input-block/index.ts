@@ -7,7 +7,7 @@ interface ProfileInputBlockProps {
   type: string;
   id: string;
   name: string;
-  placeholder: string;
+  value?: string;
   errorMessage: string;
   disabled: boolean;
   events: {
@@ -16,7 +16,7 @@ interface ProfileInputBlockProps {
   };
 }
 
-export class ProfileInputBlock extends Block<ProfileInputBlockProps, HTMLInputElement> {
+export class ProfileInputBlock extends Block<ProfileInputBlockProps> {
   constructor(props: ProfileInputBlockProps) {
     super('div', props);
 
@@ -25,8 +25,12 @@ export class ProfileInputBlock extends Block<ProfileInputBlockProps, HTMLInputEl
     this.element!.classList.add('profile-input-block');
 
     if (disabled) {
-      this.element!.querySelector('input')!.setAttribute('disabled', '');
+      this.input!.setAttribute('disabled', '');
     }
+  }
+
+  get input() {
+    return this.element!.querySelector('input');
   }
 
   render() {

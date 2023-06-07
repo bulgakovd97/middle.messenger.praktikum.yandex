@@ -2,16 +2,7 @@ import { nanoid } from 'nanoid';
 import { EventBus } from './EventBus';
 import { isEmptyObject } from '../lib';
 
-type BlockEvents<P = any> = {
-  'init': [],
-  'flow:component-did-mount': [],
-  'flow:component-did-update': [P, P],
-  'flow:render': [],
-};
-
-type Props<P extends Record<string, unknown> = any> = { events?: Record<string, (event: Event) => void> } & P;
-
-export class Block<P extends Record<string, any> = any, E extends HTMLElement = HTMLElement> {
+export class Block<P extends Record<string, any> = any> {
   static EVENTS = {
     INIT: 'init',
     FLOW_CDM: 'flow:component-did-mount',
@@ -20,10 +11,10 @@ export class Block<P extends Record<string, any> = any, E extends HTMLElement = 
   } as const;
 
   public id = nanoid(6);
-  protected props: Props<P>;
+  protected props: P;
   public children: Record<string, Block | Block[]>;
-  private eventBus: () => EventBus<BlockEvents<Props<P>>>;
-  private _element: E | null = null;
+  private eventBus: () => EventBus;
+  private _element: HTMLElement | null = null;
   private _meta: { tagName: string; props: any; };
 
   /** JSDoc
@@ -33,7 +24,7 @@ export class Block<P extends Record<string, any> = any, E extends HTMLElement = 
    * @returns {void}
    */
 
-  constructor(tagName = 'div', propsWithChildren: Props<P> = {} as Props<P>) {
+  constructor(tagName = 'div', propsWithChildren: P = {} as P) {
     const eventBus = new EventBus();
 
     const { props, children } = this._getChildrenAndProps(propsWithChildren);
@@ -50,7 +41,7 @@ export class Block<P extends Record<string, any> = any, E extends HTMLElement = 
     eventBus.emit(Block.EVENTS.INIT);
   }
 
-  private _getChildrenAndProps(childrenAndProps: Props<P>): { props: Props<P>, children: Record<string, Block | Block[]> } {
+  private _getChildrenAndProps(childrenAndProps: P): { props: P, children: Record<string, Block | Block[]> } {
     const props: P = {} as P;
     const children: Record<string, Block | Block[]> = {};
 
@@ -64,11 +55,11 @@ export class Block<P extends Record<string, any> = any, E extends HTMLElement = 
       }
     });
 
-    return { props: props as Props<P>, children };
+    return { props, children };
   }
 
   private _addEvents() {
-    const { events = {} } = this.props as { events: Record<string, (event: Event) => void> };
+    const { events = {} } = this.props as P & { events: Record<string, (event: Event) => void> };
 
     Object.keys(events).forEach((eventName) => {
       this._element?.addEventListener(eventName, events[eventName]);
@@ -76,7 +67,7 @@ export class Block<P extends Record<string, any> = any, E extends HTMLElement = 
   }
 
   private _removeEvents() {
-    const { events } = this.props as { events: Record<string, (event: Event) => void> };
+    const { events } = this.props as P & { events: Record<string, (event: Event) => void> };
 
     if (events && !isEmptyObject(events)) {
       Object.keys(events).forEach((eventName) => {
@@ -85,7 +76,7 @@ export class Block<P extends Record<string, any> = any, E extends HTMLElement = 
     }
   }
 
-  private _registerEvents(eventBus: EventBus<BlockEvents<Props<P>>>) {
+  private _registerEvents(eventBus: EventBus) {
     eventBus.on(Block.EVENTS.INIT, this._init.bind(this));
     eventBus.on(Block.EVENTS.FLOW_CDM, this._componentDidMount.bind(this));
     eventBus.on(Block.EVENTS.FLOW_CDU, this._componentDidUpdate.bind(this));
@@ -94,7 +85,7 @@ export class Block<P extends Record<string, any> = any, E extends HTMLElement = 
 
   private _createResources() {
     const { tagName } = this._meta;
-    this._element = this._createDocumentElement(tagName) as E;
+    this._element = this._createDocumentElement(tagName);
   }
 
   private _init() {
@@ -127,17 +118,17 @@ export class Block<P extends Record<string, any> = any, E extends HTMLElement = 
     });
   }
 
-  private _componentDidUpdate(oldProps: Props<P>, newProps: Props<P>) {
+  private _componentDidUpdate(oldProps: P, newProps: P) {
     if (this.componentDidUpdate(oldProps, newProps)) {
       this.eventBus().emit(Block.EVENTS.FLOW_RENDER);
     }
   }
 
-  protected componentDidUpdate(oldProps: Props<P>, newProps: Props<P>) {
+  protected componentDidUpdate(oldProps: P, newProps: P) {
     return true;
   }
 
-  public setProps = (nextProps: Partial<Props<P>>) => {
+  public setProps = (nextProps: Partial<P>) => {
     if (!nextProps) {
       return;
     }
@@ -166,7 +157,7 @@ export class Block<P extends Record<string, any> = any, E extends HTMLElement = 
 
     Object.entries(this.children).forEach(([name, component]) => {
       if (Array.isArray(component)) {
-        contextAndStubs[name] = component.map((child) => `<div data-id="${child.id}"></div>`);
+        contextAndStubs[name] = component.map((child) => `<div data-id="${child.id}"></div>`).join('');
       } else {
         contextAndStubs[name] = `<div data-id="${component.id}"></div>`;
       }
@@ -209,7 +200,7 @@ export class Block<P extends Record<string, any> = any, E extends HTMLElement = 
     return this.element;
   }
 
-  private _makePropsProxy(props: Props<P>) {
+  private _makePropsProxy(props: P) {
     return new Proxy(props, {
       get(target, prop: string) {
         const value = target[prop];
@@ -219,7 +210,7 @@ export class Block<P extends Record<string, any> = any, E extends HTMLElement = 
       set: (target, prop: string, value) => {
         const oldTarget = { ...target };
 
-        target[prop as keyof Props<P>] = value;
+        target[prop as keyof P] = value;
 
         this.eventBus().emit(Block.EVENTS.FLOW_CDU, oldTarget, target);
         return true;

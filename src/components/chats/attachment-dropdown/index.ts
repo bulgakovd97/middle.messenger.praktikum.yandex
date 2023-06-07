@@ -9,7 +9,7 @@ interface AttachmentDropDownProps {
   };
 }
 
-export class AttachmentDropDown extends Block<AttachmentDropDownProps, HTMLDivElement> {
+export class AttachmentDropDown extends Block<AttachmentDropDownProps> {
   constructor(props: AttachmentDropDownProps) {
     super('div', props);
 

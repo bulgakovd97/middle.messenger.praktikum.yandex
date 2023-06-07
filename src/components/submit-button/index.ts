@@ -3,13 +3,13 @@ import { Block } from '@/shared/utils/Block';
 
 interface SubmitButtonProps {
   className: string | string[];
-  title: string;
+  buttonText: string;
   events?: {
     click: (event: Event) => void,
   };
 }
 
-export class SubmitButton extends Block<SubmitButtonProps, HTMLButtonElement> {
+export class SubmitButton extends Block<SubmitButtonProps> {
   constructor(props: SubmitButtonProps) {
     super('button', props);
 
@@ -21,10 +21,10 @@ export class SubmitButton extends Block<SubmitButtonProps, HTMLButtonElement> {
       this.element!.classList.add(props.className);
     }
 
-    this.element!.type = 'submit';
+    (this.element as HTMLButtonElement)!.type = 'submit';
   }
 
   render() {
-    return this.compile(template, { title: this.props.title });
+    return this.compile(template, { buttonText: this.props.buttonText });
   }
 }

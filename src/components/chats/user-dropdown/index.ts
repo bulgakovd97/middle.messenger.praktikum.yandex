@@ -9,7 +9,7 @@ interface UserDropDownProps {
   };
 }
 
-export class UserDropDown extends Block<UserDropDownProps, HTMLDivElement> {
+export class UserDropDown extends Block<UserDropDownProps> {
   constructor(props: UserDropDownProps) {
     super('div', props);
 

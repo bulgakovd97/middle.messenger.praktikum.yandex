@@ -15,6 +15,7 @@
     color: $color-black;
     background-color: $color-azure;
     opacity: .85;
+    border-radius: 10px;
   }
 
   &__avatar-container {
@@ -26,20 +27,21 @@
     height: 47px;
   }
 
-  &__avatar {
+  &__chat-avatar {
     background-color: $color-xlight-grey;
     background-image: url('/static/avatar.svg');
     background-repeat: no-repeat;
     background-position: center;
     background-size: 20px 20px;
     width: $width-100;
+    max-width: 47px;
     height: $height-100;
     border-radius: 50%;
     object-fit: cover;
   }
 
   &__message-block {
-    width: $width-100;
+    width: calc($width-100 - 101px);
   }
 
   &__name {
@@ -67,8 +69,6 @@
   }
 
   &__time {
-    @include flex-row;
-
     font-size: $font-size-xs;
     line-height: $line-height;
     font-weight: $medium;
@@ -89,5 +89,6 @@
     line-height: $line-height;
     font-weight: $medium;
     border-radius: $border-circle;
+    visibility: visible;
   }
 }

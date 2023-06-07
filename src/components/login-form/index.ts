@@ -3,6 +3,11 @@ import { SubmitButton } from '../submit-button';
 import template from './login-form.hbs';
 import { Block } from '@/shared/utils/Block';
 import { InputValidation } from '@/shared/utils/InputValidation';
+import Router from '@/shared/utils/Router';
+import { Routes } from '@/shared/lib';
+import authController from '@/controllers/AuthController';
+import { store } from '@/shared/utils/Store';
+import { LoginData } from '@/api/types';
 
 interface LoginFormProps {
   title: string;
@@ -11,6 +16,7 @@ interface LoginFormProps {
 
 export class LoginForm extends Block<LoginFormProps> {
   private _form: HTMLFormElement | null;
+  private _linkButton: HTMLButtonElement | null;
 
   constructor(props: LoginFormProps) {
     super('main', props);
@@ -18,12 +24,14 @@ export class LoginForm extends Block<LoginFormProps> {
     this.element!.classList.add('login-container');
 
     this._form = this.element!.querySelector('.sign-form');
+
+    this._linkButton = this.element!.querySelector('.sign-form__link-button');
   }
 
   init() {
     this.children.submitButton = new SubmitButton({
       className: ['sign-form__button', 'sign-form__button_type_login'],
-      title: 'Войти',
+      buttonText: 'Войти',
     });
 
     this.children.loginInput = new InputBlock({
@@ -61,30 +69,44 @@ export class LoginForm extends Block<LoginFormProps> {
     this._setEventListeners();
   }
 
-  private _handleSubmit(event: Event) {
+  private async _handleSubmit(event: Event) {
     event.preventDefault();
-    const form = event.target as HTMLFormElement;
 
-    const validInputs: HTMLInputElement[] = [];
-
-    form.querySelectorAll('input').forEach((input) => {
-      const isValid = new InputValidation(input).validate();
-
-      if (isValid) {
-        validInputs.push(input);
-      }
-    });
-
-    if (validInputs.length === 2) {
-      validInputs.forEach((input) => {
+    const inputValues = Object.values(this.children)
+      .filter((child) => {
+        if (!(child instanceof InputBlock)) {
+          return;
+        }
+        const input = child.element!.querySelector('input')!;
+        const isValid = new InputValidation(input).validate();
+        // eslint-disable-next-line consistent-return
+        return isValid;
+      })
+      .map((child) => {
+        const input = (child as InputBlock).element!.querySelector('input')!;
         const { name, value } = input;
-        console.log(`${name}:`, value);
+        return [name, value];
       });
+
+    if (inputValues.length !== 2) return;
+
+    const loginData: LoginData = Object.fromEntries(inputValues);
+
+    await authController.login(loginData);
+
+    const { hasError } = store.getState().user;
+
+    if (hasError) {
+      this.element!.querySelector('.login__error')?.classList.add('visible-block');
     }
   }
 
   private _setEventListeners() {
+    // eslint-disable-next-line @typescript-eslint/no-misused-promises
     this._form!.addEventListener('submit', this._handleSubmit.bind(this));
+    this._linkButton!.addEventListener('click', () => {
+      Router.go(Routes.SIGN_UP);
+    });
   }
 
   render() {

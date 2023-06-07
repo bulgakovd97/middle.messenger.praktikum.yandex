@@ -1,16 +1,20 @@
 import { SubmitButton } from '../submit-button';
 import template from './avatar-popup.hbs';
 import { Block } from '@/shared/utils/Block';
+import userController from '@/controllers/UserController';
+import { store } from '@/shared/utils/Store';
+import router from '@/shared/utils/Router';
+import chatController from '@/controllers/ChatController';
 
 interface AvatarPopupProps {
   title: string;
   errorClass?: string;
   fileName?: string;
   fileNameError?: string;
-  photoSrc?: string;
   events?: {
     change: (event: Event) => void,
   };
+  file?: File,
 }
 
 export class AvatarPopup extends Block<AvatarPopupProps> {
@@ -24,37 +28,61 @@ export class AvatarPopup extends Block<AvatarPopupProps> {
   init() {
     this.children.submitButton = new SubmitButton({
       className: ['.submit-button', 'avatar-popup-form__button'],
-      title: 'Поменять',
+      buttonText: 'Поменять',
       events: {
+        // eslint-disable-next-line @typescript-eslint/no-misused-promises
         click: (event) => this._changeAvatar(event),
       },
     });
   }
 
-  private _changeAvatar(event: Event) {
+  private async _changeAvatar(event: Event) {
     event.preventDefault();
+
+    const avatarFile = this.props.file;
 
     const noFileError = this.element!.querySelector('.avatar-popup-form__error') as HTMLParagraphElement;
 
-    if (this.props.photoSrc) {
-      const avatar = document.querySelector('.avatar__photo') as HTMLImageElement;
-      avatar.src = this.props.photoSrc;
-      this.element!.classList.remove('popup_opened');
-      noFileError?.classList.remove('visible-block');
+    if (avatarFile) {
+      const formData = new FormData();
+      formData.append('avatar', avatarFile);
 
-      avatar.onload = () => {
-        window.URL.revokeObjectURL(avatar.src);
-      };
+      if (router.currentRoutePath === '/profile') {
+        await userController.updateAvatar(formData);
+      } else {
+        const { chat } = store.getState();
 
-      setTimeout(() => {
+        if (chat.data) {
+          formData.append('chatId', chat.data.id.toString());
+
+          await chatController.uploadChatAvatar(formData);
+        }
+      }
+
+      const { hasError } = store.getState().user || store.getState().chat;
+
+      if (hasError) {
         this.setProps({
-          title: 'Загрузите файл',
+          title: 'Ошибка, попробуйте ещё раз',
+          errorClass: 'avatar-popup__title_error',
           fileName: '',
           fileNameError: '',
-          photoSrc: '',
-          errorClass: '',
+          file: undefined,
         });
-      }, 500);
+      } else {
+        this.element!.classList.remove('popup_opened');
+        noFileError?.classList.remove('visible-block');
+
+        setTimeout(() => {
+          this.setProps({
+            title: 'Загрузите файл',
+            fileName: '',
+            fileNameError: '',
+            errorClass: '',
+            file: undefined,
+          });
+        }, 500);
+      }
     } else {
       noFileError?.classList.add('visible-block');
     }

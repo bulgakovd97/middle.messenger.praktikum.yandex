@@ -9,15 +9,13 @@ interface SearchProps {
   };
 }
 
-export class Search extends Block<SearchProps, HTMLInputElement> {
+export class Search extends Block<SearchProps> {
   constructor(props: SearchProps) {
     super('div', props);
 
     this.element!.classList.add('search');
     (this.element!.querySelector('.search__icon') as HTMLImageElement).src = search;
   }
-
-  init() {}
 
   render() {
     return this.compile(temlate, this.props);

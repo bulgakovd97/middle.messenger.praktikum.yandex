@@ -1,11 +1,18 @@
 @use '../../../styles/tools' as *;
 
 .feed {
-  @include flex-row;
+  @include flex-column;
 
   width: 76%;
   height: $height-100;
-  position: relative;
+
+  &__main {
+    @include flex-column;
+
+    width: $width-100;
+    height: calc($height-100 - (54px * 2));
+    position: relative;
+  }
 
   &__text {
     font-size: $font-size-m;
@@ -15,17 +22,14 @@
 
   &__date {
     position: absolute;
-    top: 100px;
+    top: 15px;
     display: none;
   }
 
   &__header {
     @include flex-row;
 
-    position: fixed;
-    top: 0;
-    right: 0;
-    width: 73%;
+    width: 100%;
     height: 54px;
     padding: 10px;
     margin: 0 20px;
@@ -50,7 +54,7 @@
     height: 34px;
   }
 
-  &__avatar {
+  &__chat-avatar {
     background-image: url('/static/avatar.svg');
     background-repeat: no-repeat;
     background-position: center;
@@ -60,6 +64,7 @@
     height: $height-100;
     border-radius: 50%;
     object-fit: cover;
+    cursor: pointer;
   }
 
   &__name {
@@ -76,7 +81,6 @@
     background-image: url('/static/action.svg');
     width: 20px;
     height: 20px;
-    position: relative;
 
     &:hover {
       transform: translateY(-0.5);
@@ -86,10 +90,7 @@
   &__footer {
     @include flex-row;
 
-    position: fixed;
-    bottom: 0;
-    right: 0;
-    width: 73%;
+    width: 100%;
     height: 54px;
     gap: 10px;
     padding: 10px;
@@ -144,10 +145,27 @@
     }
   }
 
-  &__message_left {
+  &__messages-block {
     @include flex-column;
 
     align-items: flex-start;
+    width: 100%;
+    height: $height-100;
+    overflow: auto;
+    margin-top: 35px;
+    margin-bottom: 20px;
+    padding: 0 25px;
+    gap: 10px;
+    display: none;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
+
+  &__message_left {
+    @include flex-column;
+
     font-size: $font-size-s;
     padding: 12px;
     border-radius: 0 10px 10px;
@@ -156,10 +174,20 @@
     max-width: 400px;
     color: $color-black;
     text-align: left;
-    position: absolute;
-    left: 20px;
-    bottom: 100px;
-    display: none;
+  }
+
+  &__message_right {
+    @include flex-column;
+
+    align-self: flex-end;
+    font-size: $font-size-s;
+    padding: 12px;
+    border-radius: 10px 0 10px 10px;
+    background-color: $color-azure;
+    width: fit-content;
+    max-width: 400px;
+    color: $color-black;
+    text-align: left;
   }
 
   &__message-time {

@@ -35,7 +35,7 @@ export class UserPopup extends Block<UserPopupProps> {
 
     this.children.submitButton = new SubmitButton({
       className: ['.submit-button', 'user-popup-form__button'],
-      title: 'Добавить',
+      buttonText: 'Добавить',
     });
   }
 
@@ -44,7 +44,7 @@ export class UserPopup extends Block<UserPopupProps> {
   }
 
   componentDidUpdate() {
-    (this.children.submitButton as SubmitButton).setProps({ title: this.props.title });
+    (this.children.submitButton as SubmitButton).setProps({ buttonText: this.props.buttonText });
     return true;
   }
 }
