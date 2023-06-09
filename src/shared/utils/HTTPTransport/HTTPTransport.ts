@@ -1,5 +1,5 @@
 /* eslint-disable prefer-promise-reject-errors */
-import { queryStringify } from '../lib';
+import { queryStringify } from '../../lib';
 
 export enum METHODS {
   GET = 'GET',
