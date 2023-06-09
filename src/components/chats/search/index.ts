@@ -4,7 +4,7 @@ import { Block } from '../../../shared/utils/Block';
 import search from '../../../../static/search.svg';
 
 interface SearchProps {
-  events: {
+  events?: {
     keyup: (event: Event) => void,
   };
 }

@@ -9,6 +9,7 @@ const dom = new JSDOM('<!DOCTYPE html><html><body><div id="root"><div/><body/></
 global.window = dom.window;
 global.document = dom.window.document;
 global.DocumentFragment = dom.window.DocumentFragment;
+global.onclick = dom.window.onclick;
 
 require.extensions['.hbs'] = (module, filename) => {
   const contents = fs.readFileSync(filename, 'utf-8');
@@ -16,6 +17,6 @@ require.extensions['.hbs'] = (module, filename) => {
   module.exports = Handlebars.compile(contents);
 };
 
-require.extensions['.scss'] = (module) => {
+require.extensions['.scss', '.svg'] = (module) => {
   module.exports = {};
 };

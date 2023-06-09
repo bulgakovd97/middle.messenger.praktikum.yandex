@@ -33,12 +33,7 @@ export class ChatList extends Block<ChatListProps> {
     });
 
     this.children.profileButton = new ProfileButton({
-      events: {
-        click: (event) => {
-          event.preventDefault();
-          Router.go(Routes.PROFILE);
-        },
-      },
+      to: Routes.PROFILE,
     });
 
     this.children.search = new Search({
