@@ -1,6 +1,6 @@
 import template from './button-group.hbs';
 import { Block } from '@/shared/utils/Block';
-import router from '@/shared/utils/Router';
+import router from '@/shared/utils/Router/Router';
 import { Routes } from '@/shared/lib';
 import authController from '@/controllers/AuthController';
 

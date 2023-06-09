@@ -8,7 +8,7 @@ import {
   ChatsPage,
 } from '@/pages/index';
 import { Routes } from '@/shared/lib';
-import router from '@/shared/utils/Router';
+import router from '@/shared/utils/Router/Router';
 import authController from '@/controllers/AuthController';
 
 // eslint-disable-next-line @typescript-eslint/no-misused-promises

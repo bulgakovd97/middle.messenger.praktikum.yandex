@@ -1,8 +1,8 @@
 import { Chat, MessageResponse, User } from '@/api/types';
 import { Block } from './Block';
 import { EventBus } from './EventBus';
-import { set } from './helpers';
 import { Socket } from '@/api/Socket';
+import { set } from './helpers';
 
 export enum StoreEvents {
   Updated = 'Updated',

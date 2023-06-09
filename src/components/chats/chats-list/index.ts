@@ -2,7 +2,7 @@ import template from './chats-list.hbs';
 import { Block } from '../../../shared/utils/Block';
 import { Search } from '../search';
 import { ChatItem } from '../chat-item';
-import Router from '@/shared/utils/Router';
+import Router from '@/shared/utils/Router/Router';
 import { Routes, parseToTime } from '@/shared/lib';
 import { Chat } from '@/api/types';
 import { ProfileButton } from '../profile-button';

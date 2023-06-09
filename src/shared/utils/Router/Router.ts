@@ -1,5 +1,5 @@
-import Route from './Route';
-import { Block } from './Block';
+import Route from '../Route';
+import { Block } from '../Block';
 
 class Router {
   private static __instance: Router;
@@ -70,6 +70,11 @@ class Router {
 
   private getRoute(pathname: string) {
     return this.routes.find((route) => route.match(pathname));
+  }
+
+  public reset() {
+    this.routes = [];
+    this.currentRoute = null;
   }
 }
 

@@ -10,7 +10,7 @@ import {
 } from '../../components';
 import { InputValidation } from '@/shared/utils/InputValidation';
 import { store, withStore } from '@/shared/utils/Store';
-import router from '@/shared/utils/Router';
+import router from '@/shared/utils/Router/Router';
 import { User } from '@/api/types';
 import userController from '@/controllers/UserController';
 

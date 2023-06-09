@@ -44,8 +44,11 @@
       "DOM.Iterable"
     ]
   },
+  "ts-node": {
+    "files": true
+  },
   "include": [
-    "**/*.ts",
+    "src/**/*.ts",
     "hbs.config.js"
   ],
   "exclude": [

@@ -28,6 +28,9 @@
       }
     }
   },
+  "ignorePatterns": [
+    "mocha.setup.js"
+  ],
   "extends": [
     "airbnb",
     "airbnb-typescript",
