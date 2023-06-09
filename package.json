@@ -6,8 +6,6 @@
     "start": "npm run build && node ./server.js",
     "dev": "parcel ./index.html --no-cache",
     "build": "parcel build ./index.html --no-cache",
-    "compile": "babel src -d lib --extensions '.ts,.tsx'",
-    "prepublish": "npm run check-types && npm run compile",
     "test": "mocha",
     "test:watch": "mocha --watch",
     "typecheck": "tsc -p tsconfig.json",
