@@ -10,6 +10,7 @@ import {
 import { Routes } from '@/shared/lib';
 import router from '@/shared/utils/Router/Router';
 import authController from '@/controllers/AuthController';
+import './styles/index.scss';
 
 // eslint-disable-next-line @typescript-eslint/no-misused-promises
 window.addEventListener('DOMContentLoaded', async () => {

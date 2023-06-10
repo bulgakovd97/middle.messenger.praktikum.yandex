@@ -1,9 +1,9 @@
 @font-face {
   font-family: 'Inter';
   font-weight: 500;
-  src: url('../../static/Inter/Inter-Medium.woff') format('woff'),
-    url('../../static/Inter/Inter-Medium.woff2') format('woff2'),
-    url('../../static/Inter/Inter-Medium.ttf') format('truetype');
+  src: url('../static/Inter/Inter-Medium.woff') format('woff'),
+    url('../static/Inter/Inter-Medium.woff2') format('woff2'),
+    url('../static/Inter/Inter-Medium.ttf') format('truetype');
   font-style: normal;
   font-display: swap;
 }
@@ -11,9 +11,9 @@
 @font-face {
   font-family: 'Inter';
   font-weight: 600;
-  src: url('../../static/Inter/Inter-SemiBold.woff') format('woff'),
-    url('../../static/Inter/Inter-SemiBold.woff2') format('woff2'),
-    url('../../static/Inter/Inter-SemiBold.ttf') format('truetype');
+  src: url('../static/Inter/Inter-SemiBold.woff') format('woff'),
+    url('../static/Inter/Inter-SemiBold.woff2') format('woff2'),
+    url('../static/Inter/Inter-SemiBold.ttf') format('truetype');
   font-style: normal;
   font-display: swap;
 }

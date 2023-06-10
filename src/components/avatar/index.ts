@@ -1,7 +1,7 @@
 import template from './avatar.hbs';
 import { Block } from '@/shared/utils/Block';
 // @ts-ignore
-import avatar from '../../../static/avatar.svg';
+import avatar from '../../static/avatar.svg';
 import { withStore } from '@/shared/utils/Store';
 
 interface AvatarProps {

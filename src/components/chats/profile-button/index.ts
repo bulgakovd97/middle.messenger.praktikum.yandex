@@ -1,7 +1,7 @@
 import template from './profile-button.hbs';
 import { Block } from '@/shared/utils/Block';
 // @ts-ignore
-import arrow from '../../../../static/arrow.svg';
+import arrow from '../../../static/arrow.svg';
 import Router from '@/shared/utils/Router/Router';
 
 interface ProfileButtonProps {

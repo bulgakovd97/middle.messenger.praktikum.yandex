@@ -13,6 +13,10 @@
   }
 
   &__input {
+    &-container {
+      width: $width-100;
+    }
+
     color: $color-black;
     font-size: $font-size-m;
     border-bottom: 1px solid $color-azure;

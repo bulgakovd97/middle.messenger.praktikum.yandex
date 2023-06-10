@@ -55,7 +55,7 @@
   }
 
   &__chat-avatar {
-    background-image: url('/static/avatar.svg');
+    background-image: url('../../../static/avatar.svg');
     background-repeat: no-repeat;
     background-position: center;
     background-size: 20px 20px;
@@ -78,7 +78,7 @@
     background-color: transparent;
     background-repeat: no-repeat;
     background-position: center;
-    background-image: url('/static/action.svg');
+    background-image: url('../../../static/action.svg');
     width: 20px;
     height: 20px;
 
@@ -101,7 +101,7 @@
   }
 
   &__attachment-button {
-    background-image: url('/static/add-button.svg');
+    background-image: url('../../../static/add-button.svg');
     background-position: center;
     background-repeat: no-repeat;
     width: 32px;
@@ -134,7 +134,7 @@
   &__send-button {
     background-repeat: no-repeat;
     background-position: center;
-    background-image: url('/static/send.svg');
+    background-image: url('../../../static/send.svg');
     width: 28px;
     height: 28px;
     transition: opacity .1s ease;

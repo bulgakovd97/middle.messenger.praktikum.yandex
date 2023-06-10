@@ -17,6 +17,10 @@ require.extensions['.hbs'] = (module, filename) => {
   module.exports = Handlebars.compile(contents);
 };
 
-require.extensions['.scss', '.svg'] = (module) => {
+require.extensions['.scss'] = (module) => {
+  module.exports = {};
+};
+
+require.extensions['.svg'] = (module) => {
   module.exports = {};
 };

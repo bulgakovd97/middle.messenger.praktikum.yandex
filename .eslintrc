@@ -29,7 +29,9 @@
     }
   },
   "ignorePatterns": [
-    "mocha.setup.js"
+    "mocha.setup.js",
+    "server.js",
+    "webpack.config.js"
   ],
   "extends": [
     "airbnb",
