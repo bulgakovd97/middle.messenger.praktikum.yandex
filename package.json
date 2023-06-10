@@ -3,9 +3,8 @@
   "version": "1.0.0",
   "description": "My webpack project",
   "scripts": {
-    "start": "npm run build && node server.js",
+    "start": "node server.js",
     "start:dev": "rimraf dist/ && npm run build:dev && node server.js",
-    "start:prod": "npm run build:prod && node server.js",
     "build": "webpack --mode=production --node-env=production",
     "build:dev": "webpack --mode=development",
     "build:prod": "webpack --mode=production --node-env=production",
@@ -43,7 +42,6 @@
     "@types/sinon": "10.0.15",
     "@typescript-eslint/eslint-plugin": "5.57.0",
     "@typescript-eslint/parser": "5.57.0",
-    "@webpack-cli/generators": "3.0.7",
     "chai": "4.3.7",
     "css-loader": "6.8.1",
     "eslint": "8.37.0",
