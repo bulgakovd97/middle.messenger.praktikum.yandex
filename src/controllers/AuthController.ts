@@ -1,7 +1,7 @@
 import { AuthAPI } from '@/api/AuthAPI';
 import { LoginData, SignupData } from '@/api/types';
 import { store } from '@/shared/utils/Store';
-import router from '@/shared/utils/Router';
+import router from '@/shared/utils/Router/Router';
 import { Routes } from '@/shared/lib';
 
 class AuthController {

@@ -1,5 +1,5 @@
 /* eslint-disable prefer-promise-reject-errors */
-import { queryStringify } from '../lib';
+import { queryStringify } from '../../lib';
 
 export enum METHODS {
   GET = 'GET',
@@ -68,7 +68,7 @@ export default class HTTPTransport {
 
       xhr.open(method, url);
 
-      xhr.onreadystatechange = (e) => {
+      xhr.onreadystatechange = () => {
         if (xhr.readyState === XMLHttpRequest.DONE) {
           if (xhr.status < 400) {
             resolve(xhr.response);

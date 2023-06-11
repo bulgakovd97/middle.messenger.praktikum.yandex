@@ -7,7 +7,7 @@ import {
   SubmitButton,
 } from '@/components/index';
 import { InputValidation } from '@/shared/utils/InputValidation';
-import Router from '@/shared/utils/Router';
+import Router from '@/shared/utils/Router/Router';
 import userController from '@/controllers/UserController';
 
 export class EditPasswordPage extends Block {

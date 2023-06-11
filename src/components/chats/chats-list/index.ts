@@ -2,7 +2,6 @@ import template from './chats-list.hbs';
 import { Block } from '../../../shared/utils/Block';
 import { Search } from '../search';
 import { ChatItem } from '../chat-item';
-import Router from '@/shared/utils/Router';
 import { Routes, parseToTime } from '@/shared/lib';
 import { Chat } from '@/api/types';
 import { ProfileButton } from '../profile-button';
@@ -33,12 +32,7 @@ export class ChatList extends Block<ChatListProps> {
     });
 
     this.children.profileButton = new ProfileButton({
-      events: {
-        click: (event) => {
-          event.preventDefault();
-          Router.go(Routes.PROFILE);
-        },
-      },
+      to: Routes.PROFILE,
     });
 
     this.children.search = new Search({

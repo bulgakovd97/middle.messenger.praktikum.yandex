@@ -3,7 +3,7 @@ import { SubmitButton } from '../submit-button';
 import template from './sign-up-form.hbs';
 import { Block } from '@/shared/utils/Block';
 import { InputValidation } from '@/shared/utils/InputValidation';
-import Router from '@/shared/utils/Router';
+import Router from '@/shared/utils/Router/Router';
 import { Routes } from '@/shared/lib';
 import { SignupData } from '@/api/types';
 import authController from '@/controllers/AuthController';

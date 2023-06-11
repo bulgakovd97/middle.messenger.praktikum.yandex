@@ -28,6 +28,11 @@
       }
     }
   },
+  "ignorePatterns": [
+    "mocha.setup.js",
+    "server.js",
+    "webpack.config.js"
+  ],
   "extends": [
     "airbnb",
     "airbnb-typescript",

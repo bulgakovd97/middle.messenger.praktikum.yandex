@@ -3,7 +3,7 @@ import template from './avatar-popup.hbs';
 import { Block } from '@/shared/utils/Block';
 import userController from '@/controllers/UserController';
 import { store } from '@/shared/utils/Store';
-import router from '@/shared/utils/Router';
+import router from '@/shared/utils/Router/Router';
 import chatController from '@/controllers/ChatController';
 
 interface AvatarPopupProps {

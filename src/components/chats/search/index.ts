@@ -1,10 +1,10 @@
 import temlate from './search.hbs';
 import { Block } from '../../../shared/utils/Block';
 // @ts-ignore
-import search from '../../../../static/search.svg';
+import search from '../../../static/search.svg';
 
 interface SearchProps {
-  events: {
+  events?: {
     keyup: (event: Event) => void,
   };
 }

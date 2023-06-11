@@ -1,6 +1,6 @@
 import template from './error.hbs';
 import { Block } from '@/shared/utils/Block';
-import Router from '@/shared/utils/Router';
+import Router from '@/shared/utils/Router/Router';
 import { Routes } from '@/shared/lib';
 
 interface ErrorProps {

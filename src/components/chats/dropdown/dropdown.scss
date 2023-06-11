@@ -46,15 +46,15 @@
 
       &_type {
         &_add {
-          background-image: url('/static/add-user.svg');
+          background-image: url('../../../static/add-user.svg');
         }
 
         &_remove {
-          background-image: url('/static/remove-user.svg');
+          background-image: url('../../../static/remove-user.svg');
         }
 
         &_delete-chat {
-          background-image: url('/static/remove-user.svg');
+          background-image: url('../../../static/remove-user.svg');
         }
       }
     }
@@ -101,15 +101,15 @@
 
       &_type {
         &_image {
-          background-image: url('/static/photo-or-video.svg');
+          background-image: url('../../../static/photo-or-video.svg');
         }
 
         &_file {
-          background-image: url('/static/file.svg');
+          background-image: url('../../../static/file.svg');
         }
 
         &_location {
-          background-image: url('/static/location.svg');
+          background-image: url('../../../static/location.svg');
         }
       }
     }
