@@ -13,5 +13,5 @@ app.listen(PORT, () => {
 });
 
 app.get('*', (req, res) => {
-  res.sendFile('index.html', { root: path.resolve(__dirname, '/dist') });
+  res.sendFile('not found');
 });
